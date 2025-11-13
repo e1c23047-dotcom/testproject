@@ -1,20 +1,31 @@
 "use client";
+import { useState } from "react";
+import MenuItem from "../components/MenuItem";
+import menuData from "../data/menu.json";
 import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const [cart, setCart] = useState([]);
   const router = useRouter();
 
+  const addToCart = (item) => setCart([...cart, item]);
+
+  const goToCart = () => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+    router.push("/cart");
+  };
+
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-zinc-50 dark:bg-black">
-      <h1 className="text-6xl font-bold text-black dark:text-white mb-10">
-        こんにちは
-      </h1>
-      <button
-        onClick={() => router.push("/ohayou")}
-        className="rounded-full bg-blue-500 px-6 py-3 text-white text-lg font-semibold hover:bg-blue-600 transition"
-      >
-        次へ →
-      </button>
+    <div style={{ padding: "20px" }}>
+      <h1>メニュー</h1>
+      {menuData.map((item) => (
+        <MenuItem key={item.id} item={item} addToCart={addToCart} />
+      ))}
+      {cart.length > 0 && (
+        <button onClick={goToCart}>
+          カートを見る ({cart.length})
+        </button>
+      )}
     </div>
   );
 }
