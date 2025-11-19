@@ -1,65 +1,145 @@
+// pages/index.jsx
+"use client"
+
 import Image from "next/image";
+
+const headingStyle = {
+  fontSize: "2.7rem",
+  fontWeight: 800,
+  color: "#326dfa",
+  margin: "2.2rem 0 1rem 0",
+  textAlign: "center",
+  letterSpacing: ".02em",
+}
+
+const sentenceStyle = {
+  fontSize: "1.18rem",
+  color: "#616A87",
+  marginBottom: "2.0rem",
+  textAlign: "center",
+  lineHeight: 1.8,
+  maxWidth: 520,
+}
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.js file.
+    <div style={{ minHeight: "100vh", background: "#f8faff", fontFamily: "sans-serif" }}>
+      {/* ヘッダー */}
+      <header
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          padding: "1.2rem 2.5vw",
+          background: "#fff",
+          boxShadow: "0 1px 6px rgba(100,150,200,0.08)",
+        }}
+      >
+        <a href="/" style={{ fontWeight: 700, fontSize: "1.5rem", color: "#326dfa" }}>
+          大阪工業大学 モバイルオーダー
+        </a>
+        <nav>
+          <a href="/" style={{ marginRight: 24, color: "#326dfa", textDecoration: "none", fontWeight: 600 }}>ホーム</a>
+          <a href="/contact" style={{ marginRight: 24, color: "#eb1d50ff", textDecoration: "none", fontWeight: 600 }}>お問い合わせ</a>
+          <a href="/login" style={{ color: "#357e04ff", textDecoration: "none", fontWeight: 600 }}>ログイン</a>
+        </nav>
+      </header>
+
+      {/* メイン */}
+      <main
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: "2rem 1rem",
+          minHeight: "75vh",
+        }}
+      >
+        <p style={{ margin: "5rem 0" }}></p>
+
+        <div
+          style={{
+            minHeight: "100vh",
+            backgroundImage: "url('/assets/syokudou_shifuku.png')",
+            backgroundSize: "auto",       // 画面いっぱいに広げる
+            backgroundPosition: "center",  // 中央配置
+            backgroundRepeat: "no-repeat", // 繰り返しなし
+            opacity: 0.5,
+          }}
+        >
+          <h1
+            style={
+              headingStyle
+            }
+          >
+            遠隔で料理を注文しよう
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+
+          <p style={sentenceStyle}>
+            モバイルオーダーはご自身のスマホから注文することで，<br />混雑や待ち時間を緩和することができます．
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
+
           <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/login"
+            style={{
+              display: "inline-block",
+              padding: "0.85rem 2rem",
+              background: "linear-gradient(88deg, #326dfa 0%, #5a98f9 100%)",
+              color: "#fff",
+              borderRadius: 11,
+              fontWeight: 700,
+              fontSize: "1.05rem",
+              letterSpacing: ".03em",
+              textDecoration: "none",
+              boxShadow: "0 2px 12px rgba(50,109,250,.10)",
+              transition: "background .18s, box-shadow .21s",
+              marginTop: "0.7rem"
+            }}
+            onMouseOver={e =>
+            (e.target.style.background =
+              "linear-gradient(88deg, #264dbd 0%, #326dfa 100%)")
+            }
+            onMouseOut={e =>
+            (e.target.style.background =
+              "linear-gradient(88deg, #326dfa 0%, #5a98f9 100%)")
+            }
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
+            注文をする
           </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+          
         </div>
+
+
+        <p style={{ margin: "10rem 0" }}></p>
+
+        <h1 style={headingStyle}>
+          What is this?
+        </h1>
+
+        <p style={sentenceStyle}>
+          モバイルオーダーではご自身のスマホから注文をすることができます．そして注文した料理が完成するとご自身のスマホに通知を送らせていただきます．<br />
+          これにより，提供口の前で待つことや券売機に並ぶ必要が無くなります．
+        </p>
+
+
+
+
       </main>
+
+      {/* フッター */}
+      <footer
+        style={{
+          background: "#eef5ff",
+          textAlign: "center",
+          padding: "1rem",
+          fontSize: "1.03rem",
+          color: "#888",
+          marginTop: "2rem",
+        }}
+      >
+        &copy; 2025 大阪工業大学 モバイルオーダー
+      </footer>
     </div>
   );
 }
