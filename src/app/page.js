@@ -1,63 +1,96 @@
+"use client";
+
 import Image from "next/image";
+import Link from "next/link";
+import { useCart } from "../../context/CartContext";
+import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function Home() {
+  const { addToCart } = useCart();
+  const [addedProduct, setAddedProduct] = useState(null);
+
+  const products = [
+    { id: "bigmac", name: "ハンバーガー", price: 450, image: "/menu-burger.png" },
+    { id: "potato-m", name: "ポテト M", price: 290, image: "/menu-potato.png" },
+  ];
+
+  // 数量管理用 state
+  const [quantities, setQuantities] = useState(
+    products.reduce((acc, p) => ({ ...acc, [p.id]: 1 }), {})
+  );
+
+  // 商品をカートに追加する関数（数量を渡す）
+  const handleAdd = (product) => {
+    addToCart(product, quantities[product.id]); // quantityをCartContextに渡す
+    setAddedProduct(product.id);
+
+    toast.success(`${product.name} を ${quantities[product.id]} 個カートに追加しました`);
+
+    // 2秒後にボタンを元に戻す
+    setTimeout(() => setAddedProduct(null), 2000);
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.js file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="flex min-h-screen items-center justify-center bg-[#f5ebdc] font-sans">
+      <Toaster position="top-right" />
+
+      <main className="flex min-h-screen w-full max-w-md flex-col items-center py-10 px-6">
+        {/* Header */}
+        <div className="flex w-full items-center justify-between mb-8">
+          <Image src="/mc-logo.png" alt="Logo" width={50} height={50} />
+          <Link
+            href="/cart"
+            className="rounded-full bg-red-500 px-4 py-2 text-white text-sm font-semibold"
+          >
+            カート
+          </Link>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        <h1 className="text-3xl font-bold text-red-600 mb-4">モバイルオーダー</h1>
+        <p className="text-zinc-700 text-center text-base mb-10">
+          商品を選んでカートに追加できます。
+        </p>
+
+        {/* Product List */}
+        <div className="grid grid-cols-2 gap-4 w-full">
+          {products.map((p) => (
+            <div key={p.id} className="rounded-lg bg-white p-3 shadow">
+              <Image src={p.image} alt={p.name} width={200} height={200} className="rounded-md" />
+              <p className="font-medium mt-2 text-zinc-900">{p.name}</p>
+              <p className="text-sm text-zinc-600 mb-2">¥{p.price}</p>
+
+              {/* 数量選択 */}
+              <div className="flex items-center mb-2">
+                <button
+                  onClick={() =>
+                    setQuantities((prev) => ({ ...prev, [p.id]: Math.max(1, prev[p.id] - 1) }))
+                  }
+                  className="px-2 py-1 bg-gray-200 rounded-l"
+                >
+                  -
+                </button>
+                <span className="px-4 py-1 border-t border-b">{quantities[p.id]}</span>
+                <button
+                  onClick={() =>
+                    setQuantities((prev) => ({ ...prev, [p.id]: prev[p.id] + 1 }))
+                  }
+                  className="px-2 py-1 bg-gray-200 rounded-r"
+                >
+                  +
+                </button>
+              </div>
+
+              <button
+                onClick={() => handleAdd(p)}
+                className={`w-full py-2 mt-2 rounded-lg transition ${
+                  addedProduct === p.id ? "bg-green-500 text-white" : "bg-red-500 text-white"
+                }`}
+              >
+                {addedProduct === p.id ? "追加されました！" : "カートに追加"}
+              </button>
+            </div>
+          ))}
         </div>
       </main>
     </div>
