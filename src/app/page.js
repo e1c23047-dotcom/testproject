@@ -20,16 +20,22 @@ export default function Home() {
     products.reduce((acc, p) => ({ ...acc, [p.id]: 1 }), {})
   );
 
-  // 商品をカートに追加する関数（数量を渡す）
   const handleAdd = (product) => {
-    addToCart(product, quantities[product.id]); // quantityをCartContextに渡す
-    setAddedProduct(product.id);
+  addToCart(product, quantities[product.id]);
+  setAddedProduct(product.id);
 
-    toast.success(`${product.name} を ${quantities[product.id]} 個カートに追加しました`);
+  toast.success(`${product.name} を ${quantities[product.id]} 個カートに追加しました`);
 
-    // 2秒後にボタンを元に戻す
-    setTimeout(() => setAddedProduct(null), 2000);
-  };
+  //  追加後に数量を1に戻す
+  setQuantities((prev) => ({
+    ...prev,
+    [product.id]: 1
+  }));
+
+  // ボタン表示を2秒後にもどす
+  setTimeout(() => setAddedProduct(null), 2000);
+};
+
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-[#f5ebdc] font-sans">

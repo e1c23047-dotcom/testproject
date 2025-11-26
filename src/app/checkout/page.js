@@ -22,16 +22,29 @@ export default function CheckoutPage() {
 
       <p className="font-bold text-lg mt-4">合計：¥{total}</p>
 
-      <Link
-        href={{
-          pathname: "/thanks",
-          query: { pickupNumber } // クエリに受け取り番号を渡す
-        }}
-        onClick={() => clearCart()}
-        className="block bg-red-500 text-white text-center py-3 rounded-lg mt-6"
-      >
-        注文を確定する
-      </Link>
+      <div className="flex gap-4 mt-6">
+
+  {/* 左側：ホームに戻る */}
+  <Link
+    href="/"
+    className="flex-1 bg-red-500 text-white py-3 text-center rounded-lg"
+  >
+    ホームに戻る
+  </Link>
+
+  {/* 右側：注文を確定する */}
+  <Link
+    href={{
+      pathname: "/thanks",
+      query: { pickupNumber }
+    }}
+    onClick={() => clearCart()}
+    className="flex-1 bg-red-500 text-white text-center py-3 rounded-lg"
+  >
+    注文を確定する
+  </Link>
+  </div>
+
     </div>
   );
 }

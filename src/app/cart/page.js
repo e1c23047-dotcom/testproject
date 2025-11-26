@@ -4,22 +4,18 @@ import Link from "next/link";
 import { useCart } from "../../../context/CartContext";
 
 export default function CartPage() {
-  const { cart, addToCart, removeFromCart } = useCart();
+  const { cart, addToCart, removeFromCart, decreaseQuantityCart } = useCart();
 
-  // カート内合計
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-  // 数量を減らす関数
   const decreaseQuantity = (itemId) => {
     const item = cart.find((i) => i.id === itemId);
     if (!item) return;
 
     if (item.quantity === 1) {
-      // 1個の場合は削除
       removeFromCart(itemId);
     } else {
-      // 1以上の場合は1個減らす
-      removeFromCart(itemId);
+      decreaseQuantityCart(itemId);
     }
   };
 
@@ -28,7 +24,19 @@ export default function CartPage() {
       <h1 className="text-xl font-bold mb-4">カート</h1>
 
       {cart.length === 0 ? (
-        <p>カートは空です。</p>
+        <>
+          <p>カートは空です。</p>
+
+          {/* 空のときもホームへ戻るボタンを表示 */}
+          <div className="mt-4">
+            <Link
+              href="/"
+              className="block w-full bg-red-500 text-white py-3 text-center rounded-lg"
+            >
+              ホームに戻る
+            </Link>
+          </div>
+        </>
       ) : (
         <>
           {cart.map((item) => (
@@ -38,10 +46,11 @@ export default function CartPage() {
             >
               <div>
                 <p className="font-medium">{item.name}</p>
-                <p className="text-sm text-zinc-600">¥{item.price} × {item.quantity}</p>
+                <p className="text-sm text-zinc-600">
+                  ¥{item.price} × {item.quantity}
+                </p>
               </div>
 
-              {/* 数量操作 */}
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => decreaseQuantity(item.id)}
@@ -68,12 +77,22 @@ export default function CartPage() {
 
           <p className="font-bold text-lg mt-4">合計：¥{total}</p>
 
-          <Link
-            href="/checkout"
-            className="block w-full bg-red-500 text-white py-3 mt-4 text-center rounded-lg"
-          >
-            注文へ進む
-          </Link>
+          {/* 横並びのボタン（ホーム ←→ 注文へ進む） */}
+          <div className="flex gap-4 mt-4">
+            <Link
+              href="/"
+              className="flex-1 bg-red-500 text-white py-3 text-center rounded-lg"
+            >
+              ホームに戻る
+            </Link>
+
+            <Link
+              href="/checkout"
+              className="flex-1 bg-red-500 text-white py-3 text-center rounded-lg"
+            >
+              注文へ進む
+            </Link>
+          </div>
         </>
       )}
     </div>

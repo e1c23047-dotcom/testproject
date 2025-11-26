@@ -25,7 +25,7 @@ export const CartProvider = ({ children }) => {
   };
 
   // 商品を1個減らす
-  const decreaseQuantity = (id) => {
+  const decreaseQuantityCart = (id) => {
     setCart((prev) =>
       prev
         .map((item) =>
@@ -45,7 +45,7 @@ export const CartProvider = ({ children }) => {
 
   return (
     <CartContext.Provider
-      value={{ cart, addToCart, decreaseQuantity, removeFromCart, clearCart }}
+      value={{ cart, addToCart, decreaseQuantityCart, removeFromCart, clearCart }}
     >
       {children}
     </CartContext.Provider>
