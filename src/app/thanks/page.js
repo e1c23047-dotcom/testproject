@@ -14,7 +14,7 @@ export default function ThanksPage() {
 
       {pickupNumber ? (
         <p className="mb-4 text-lg">
-          受け取り番号: <span className="font-bold text-red-500">{pickupNumber}</span>
+          受け取り番号: <span className="font-bold text-blue-500">{pickupNumber}</span>
         </p>
       ) : null}
 
@@ -24,7 +24,7 @@ export default function ThanksPage() {
 
       <Link
         href="/"
-        className="block w-full bg-red-500 text-white py-3 text-center rounded-lg"
+        className="block w-full bg-blue-500 text-white py-3 text-center rounded-lg"
       >
         ホームに戻る
       </Link>

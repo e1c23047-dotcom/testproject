@@ -27,7 +27,7 @@ export default function CheckoutPage() {
   {/* 左側：ホームに戻る */}
   <Link
     href="/"
-    className="flex-1 bg-red-500 text-white py-3 text-center rounded-lg"
+    className="flex-1 bg-blue-500 text-white py-3 text-center rounded-lg"
   >
     ホームに戻る
   </Link>
@@ -39,7 +39,7 @@ export default function CheckoutPage() {
       query: { pickupNumber }
     }}
     onClick={() => clearCart()}
-    className="flex-1 bg-red-500 text-white text-center py-3 rounded-lg"
+    className="flex-1 bg-blue-500 text-white text-center py-3 rounded-lg"
   >
     注文を確定する
   </Link>

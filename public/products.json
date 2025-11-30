@@ -1,0 +1,23 @@
+[
+  {
+    "id": "bigmac",
+    "name": "ハンバーガー",
+    "price": 450,
+    "image": "/menu-burger.png",
+    "category": "burgers"
+  },
+  {
+    "id": "potato-m",
+    "name": "ポテト M",
+    "price": 290,
+    "image": "/menu-potato.png",
+    "category": "sides"
+  },
+  {
+    "id": "cola-m",
+    "name": "コーラ M",
+    "price": 220,
+    "image": "/menu-cola.png",
+    "category": "drinks"
+  }
+]
