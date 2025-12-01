@@ -7,7 +7,27 @@ export default function CheckoutPage() {
   const { cart, clearCart } = useCart();
   const total = cart.reduce((s, i) => s + i.price * i.quantity, 0);
 
-  const pickupNumber = Math.floor(Math.random()*900)+100;
+  const pickupNumber = Math.floor(Math.random() * 900) + 100;
+
+  const handleConfirm = async () => {
+    try {
+      await fetch("/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          cart,
+          total,
+          pickupNumber,
+          date: new Date().toISOString(),
+        }),
+      });
+
+      console.log("注文データ送信完了");
+      clearCart(); // カートを空にする
+    } catch (err) {
+      console.error("注文送信エラー:", err);
+    }
+  };
 
   return (
     <div className="p-6">
@@ -24,27 +44,26 @@ export default function CheckoutPage() {
 
       <div className="flex gap-4 mt-6">
 
-  {/* 左側：ホームに戻る */}
-  <Link
-    href="/"
-    className="flex-1 bg-blue-500 text-white py-3 text-center rounded-lg"
-  >
-    ホームに戻る
-  </Link>
+        {/* 左側：ホームに戻る */}
+        <Link
+          href="/"
+          className="flex-1 bg-blue-500 text-white py-3 text-center rounded-lg"
+        >
+          ホームに戻る
+        </Link>
 
-  {/* 右側：注文を確定する */}
-  <Link
-    href={{
-      pathname: "/thanks",
-      query: { pickupNumber }
-    }}
-    onClick={() => clearCart()}
-    className="flex-1 bg-blue-500 text-white text-center py-3 rounded-lg"
-  >
-    注文を確定する
-  </Link>
-  </div>
-
+        {/* 右側：注文を確定する */}
+        <Link
+          href={{
+            pathname: "/thanks",
+            query: { pickupNumber }
+          }}
+          onClick={handleConfirm}
+          className="flex-1 bg-blue-500 text-white text-center py-3 rounded-lg"
+        >
+          注文を確定する
+        </Link>
+      </div>
     </div>
   );
 }
