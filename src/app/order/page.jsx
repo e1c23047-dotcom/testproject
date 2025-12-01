@@ -1,135 +1,194 @@
-// pages/order.jsx
 "use client";
 
-export default function Order() {
+import { useState } from "react";
+import Link from "next/link";
 
-  const foods = [
+function Toast({ message }) {
+  return (
+    <div
+      style={{
+        position: "fixed",
+        top: "20px",
+        right: "20px",
+        background: "rgba(0,0,0,0.8)",
+        color: "white",
+        padding: "12px 18px",
+        borderRadius: "10px",
+        fontSize: "0.9rem",
+        zIndex: 9999,
+      }}
+    >
+      {message}
+    </div>
+  );
+}
+
+export default function OrderPage() {
+  const [cart, setCart] = useState([]);
+  const [showToast, setShowToast] = useState(false);
+
+  const menu = [
     {
       name: "かつ丼",
+      price: 780,
       img: "/foods/katsudon.jpg",
-      price: 850
     },
     {
       name: "うどん",
+      price: 450,
       img: "/foods/udon.jpg",
-      price: 600
     },
     {
       name: "ラーメン",
+      price: 680,
       img: "/foods/ramen.jpg",
-      price: 750
     },
     {
       name: "焼肉定食",
+      price: 980,
       img: "/foods/yakiniku.jpg",
-      price: 980
-    }
+    },
   ];
 
-  const handleOrder = (name) => {
-    alert(`${name} を注文しました！`);
+  const handleAddToCart = (item) => {
+    const newCart = [...cart, item];   // ← ここで newCart を定義
+    setCart(newCart);                  // ← 正しく更新
+    localStorage.setItem("cart", JSON.stringify(newCart)); // ここで保存
+  
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 1500);
   };
 
   return (
-    <div style={{
-      minHeight: "100vh",
-      background: "linear-gradient(120deg, #e0eaff 0%, #ffffff 100%)",
-      fontFamily: "'Inter','Helvetica Neue',Arial,sans-serif",
-      padding: "2rem",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-    }}>
+    <div
+      style={{
+        minHeight: "100vh",
+        background: "#f5f7ff",
+        padding: "2rem",
+        fontFamily: "'Inter','Helvetica Neue',Arial,sans-serif",
+      }}
+    >
+      {showToast && <Toast message="カートに追加しました！" />}
 
-      <h1 style={{
-        fontSize: "2.2rem",
-        fontWeight: "700",
-        color: "#326dfa",
-        marginBottom: "1.2rem",
-        letterSpacing: ".03em",
-        textShadow: "0 1px 2px rgba(0,0,0,0.08)"
-      }}>
-        注文メニュー
-      </h1>
+      <div
+        style={{
+          maxWidth: 900,
+          margin: "0 auto",
+          background: "white",
+          borderRadius: 18,
+          padding: "2rem 2.2rem",
+          boxShadow: "0 4px 28px rgba(0,0,0,0.08)",
+        }}
+      >
+        <div
+          style={{
+            textAlign: "center",
+            fontSize: "1.8rem",
+            fontWeight: 700,
+            color: "#2e3a8c",
+            marginBottom: "1.8rem",
+          }}
+        >
+          注文ページ
+        </div>
 
-      <div style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-        gap: "1.6rem",
-        width: "100%",
-        maxWidth: "1000px",
-      }}>
-        {foods.map(food => (
-          <div key={food.name} style={{
-            background: "#fff",
-            borderRadius: 20,
-            boxShadow: "0 6px 24px rgba(50,109,250,0.10)",
-            overflow: "hidden",
-            display: "flex",
-            flexDirection: "column"
-          }}>
+        {/* カート画面リンク */}
+        <div style={{ textAlign: "right", marginBottom: "1rem" }}>
+          <Link
+            href="/cart"
+            style={{
+              color: "#326dfa",
+              fontSize: "1rem",
+              fontWeight: 600,
+              textDecoration: "none",
+            }}
+          >
+            カートを見る（{cart.length}）
+          </Link>
+        </div>
 
-            {/* 写真 */}
-            <img
-              src={food.img}
-              alt={food.name}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
+            gap: "1.5rem",
+          }}
+        >
+          {menu.map((item) => (
+            <div
+              key={item.name}
               style={{
-                width: "100%",
-                height: "170px",
-                objectFit: "cover",
+                background: "white",
+                borderRadius: 16,
+                padding: "1rem",
+                boxShadow: "0 2px 18px rgba(0,0,0,0.06)",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: "0.6rem",
               }}
-            />
+            >
+              <img
+                src={item.img}
+                alt={item.name}
+                style={{
+                  width: "100%",
+                  height: 140,
+                  objectFit: "cover",
+                  borderRadius: 12,
+                }}
+              />
 
-            {/* 商品名・ボタン */}
-            <div style={{
-              padding: "1.1rem",
-              display: "flex",
-              flexDirection: "column",
-              gap: ".7rem"
-            }}>
-              <div style={{
-                fontSize: "1.3rem",
-                fontWeight: "600",
-                color: "#264dbd"
-              }}>
-                {food.name}
+              <div
+                style={{
+                  fontSize: "1.1rem",
+                  fontWeight: 600,
+                  color: "#34418e",
+                  marginTop: "0.3rem",
+                }}
+              >
+                {item.name}
               </div>
 
-              <div style={{
-                fontSize: "1.1rem",
-                color: "#4752a5",
-                marginBottom: "0.4rem"
-              }}>
-                ¥{food.price}
+              <div
+                style={{
+                  fontSize: "1rem",
+                  color: "#555",
+                  marginBottom: "0.4rem",
+                }}
+              >
+                ¥{item.price.toLocaleString()}
               </div>
 
               <button
-                onClick={() => handleOrder(food.name)}
+                onClick={() => handleAddToCart(item)}
                 style={{
-                  padding: "0.8rem",
-                  background: "linear-gradient(87deg, #326dfa 0%, #5a98f9 90%)",
-                  color: "#fff",
+                  marginTop: "0.5rem",
+                  background: "linear-gradient(87deg,#326dfa 0%,#5a98f9 90%)",
+                  color: "white",
                   border: "none",
                   borderRadius: 12,
-                  fontWeight: 700,
-                  letterSpacing: ".02em",
+                  padding: "0.6rem 1rem",
+                  width: "100%",
+                  fontSize: "1rem",
+                  fontWeight: 600,
                   cursor: "pointer",
-                  boxShadow: "0 1.5px 8px rgba(50,109,250,.13)",
-                  transition: "0.22s"
+                  transition: "0.2s",
                 }}
                 onMouseOver={(e) =>
-                  e.target.style.background = "linear-gradient(87deg, #2b59c3 0%, #326dfa 90%)"
+                  (e.target.style.background =
+                    "linear-gradient(87deg,#2b59c3 0%,#326dfa 90%)")
                 }
                 onMouseOut={(e) =>
-                  e.target.style.background = "linear-gradient(87deg, #326dfa 0%, #5a98f9 90%)"
+                  (e.target.style.background =
+                    "linear-gradient(87deg,#326dfa 0%,#5a98f9 90%)")
                 }
               >
-                注文する
+                カートに入れる
               </button>
             </div>
-
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );
