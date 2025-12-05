@@ -58,57 +58,48 @@ export default function Home() {
       >
         <p style={{ margin: "5rem 0" }}></p>
 
-        <div
-          style={{
-            minHeight: "100vh",
-            backgroundImage: "url('/assets/syokudou_shifuku.png')",
-            backgroundSize: "auto",       // 画面いっぱいに広げる
-            backgroundPosition: "center",  // 中央配置
-            backgroundRepeat: "no-repeat", // 繰り返しなし
-            opacity: 0.5,
-          }}
+
+        <h1
+          style={
+            headingStyle
+          }
         >
-          <h1
-            style={
-              headingStyle
-            }
-          >
-            遠隔で料理を注文しよう
-          </h1>
+          遠隔で料理を注文しよう
+        </h1>
 
-          <p style={sentenceStyle}>
-            モバイルオーダーはご自身のスマホから注文することで，<br />混雑や待ち時間を緩和することができます．
-          </p>
+        <p style={sentenceStyle}>
+          モバイルオーダーはご自身のスマホから注文することで，<br />混雑や待ち時間を緩和することができます．
+        </p>
 
-          <a
-            href="/login"
-            style={{
-              display: "inline-block",
-              padding: "0.85rem 2rem",
-              background: "linear-gradient(88deg, #326dfa 0%, #5a98f9 100%)",
-              color: "#fff",
-              borderRadius: 11,
-              fontWeight: 700,
-              fontSize: "1.05rem",
-              letterSpacing: ".03em",
-              textDecoration: "none",
-              boxShadow: "0 2px 12px rgba(50,109,250,.10)",
-              transition: "background .18s, box-shadow .21s",
-              marginTop: "0.7rem"
-            }}
-            onMouseOver={e =>
-            (e.target.style.background =
-              "linear-gradient(88deg, #264dbd 0%, #326dfa 100%)")
-            }
-            onMouseOut={e =>
-            (e.target.style.background =
-              "linear-gradient(88deg, #326dfa 0%, #5a98f9 100%)")
-            }
-          >
-            注文をする
-          </a>
-          
-        </div>
+        <a
+          href="/login"
+          style={{
+            display: "inline-block",
+            padding: "0.85rem 2rem",
+            background: "linear-gradient(88deg, #326dfa 0%, #5a98f9 100%)",
+            color: "#fff",
+            borderRadius: 11,
+            fontWeight: 700,
+            fontSize: "1.05rem",
+            letterSpacing: ".03em",
+            textDecoration: "none",
+            boxShadow: "0 2px 12px rgba(50,109,250,.10)",
+            transition: "background .18s, box-shadow .21s",
+            marginTop: "0.7rem"
+          }}
+          onMouseOver={e =>
+          (e.target.style.background =
+            "linear-gradient(88deg, #264dbd 0%, #326dfa 100%)")
+          }
+          onMouseOut={e =>
+          (e.target.style.background =
+            "linear-gradient(88deg, #326dfa 0%, #5a98f9 100%)")
+          }
+        >
+          注文をする
+        </a>
+
+
 
 
         <p style={{ margin: "10rem 0" }}></p>
