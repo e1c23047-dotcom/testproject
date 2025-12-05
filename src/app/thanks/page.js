@@ -19,7 +19,7 @@ export default function ThanksPage() {
       ) : null}
 
       <p className="mb-6">
-        注文が完了しました。食堂で商品をお受け取りください。
+        料理が完成しました。食堂で商品をお受け取りください。
       </p>
 
       <Link

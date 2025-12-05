@@ -55,8 +55,8 @@ export default function CheckoutPage() {
         {/* 右側：注文を確定する */}
         <Link
           href={{
-            pathname: "/thanks",
-            query: { pickupNumber }
+            pathname: "/cooking",
+            query: { orderId: Date.now() }
           }}
           onClick={handleConfirm}
           className="flex-1 bg-blue-500 text-white text-center py-3 rounded-lg"

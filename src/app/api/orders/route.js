@@ -48,6 +48,7 @@ export async function POST(request) {
       cart,
       total,
       createdAt: new Date().toISOString(),
+      completed: false,
     };
 
     orders.push(order);
