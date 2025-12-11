@@ -344,6 +344,104 @@
     ],
     "total": 450,
     "createdAt": "2025-12-05T08:34:48.414Z",
+    "completed": true,
+    "served": true
+  },
+  {
+    "id": 1765445699483,
+    "pickupNumber": 670,
+    "cart": [
+      {
+        "id": "bigmac",
+        "name": "ハンバーガー",
+        "price": 450,
+        "image": "/menu-burger.png",
+        "category": "burgers",
+        "quantity": 1
+      },
+      {
+        "id": "potato-m",
+        "name": "ポテト M",
+        "price": 290,
+        "image": "/menu-potato.png",
+        "category": "sides",
+        "quantity": 1
+      }
+    ],
+    "total": 740,
+    "createdAt": "2025-12-11T09:34:59.483Z",
+    "completed": true,
+    "served": true
+  },
+  {
+    "id": 1765446074033,
+    "pickupNumber": 839,
+    "cart": [
+      {
+        "id": "bigmac",
+        "name": "ハンバーガー",
+        "price": 450,
+        "image": "/menu-burger.png",
+        "category": "burgers",
+        "quantity": 1
+      }
+    ],
+    "total": 450,
+    "createdAt": "2025-12-11T09:41:14.033Z",
+    "completed": true,
+    "served": true
+  },
+  {
+    "id": 1765448003734,
+    "pickupNumber": 418,
+    "cart": [
+      {
+        "id": "bigmac",
+        "name": "ハンバーガー",
+        "price": 450,
+        "image": "/menu-burger.png",
+        "category": "burgers",
+        "quantity": 1
+      }
+    ],
+    "total": 450,
+    "createdAt": "2025-12-11T10:13:23.734Z",
+    "completed": true,
+    "served": true
+  },
+  {
+    "id": 1765448655609,
+    "pickupNumber": 341,
+    "cart": [
+      {
+        "id": "bigmac",
+        "name": "ハンバーガー",
+        "price": 450,
+        "image": "/menu-burger.png",
+        "category": "burgers",
+        "quantity": 1
+      }
+    ],
+    "total": 450,
+    "createdAt": "2025-12-11T10:24:15.609Z",
+    "completed": true,
+    "served": true
+  },
+  {
+    "id": 1765449241383,
+    "pickupNumber": 263,
+    "cart": [
+      {
+        "id": "bigmac",
+        "name": "ハンバーガー",
+        "price": 450,
+        "image": "/menu-burger.png",
+        "category": "burgers",
+        "quantity": 1
+      }
+    ],
+    "total": 450,
+    "createdAt": "2025-12-11T10:34:01.383Z",
     "completed": false
   }
 ]
