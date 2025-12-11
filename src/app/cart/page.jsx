@@ -5,16 +5,16 @@ import Link from "next/link";
 
 export default function CartPage() {
   const [cart, setCart] = useState([]);
+  const [total, setTotal] = useState(0);
 
-  // localStorage から読み込み
+  // カート読み込み
   useEffect(() => {
-    const saved = localStorage.getItem("cart");
-    if (saved) {
-      setCart(JSON.parse(saved));
-    }
-  }, []);
+    const saved = JSON.parse(localStorage.getItem("cart") || "[]");
+    setCart(saved);
 
-  const total = cart.reduce((sum, item) => sum + item.price, 0);
+    const sum = saved.reduce((acc, item) => acc + item.price, 0);
+    setTotal(sum);
+  }, []);
 
   return (
     <div
@@ -47,8 +47,8 @@ export default function CartPage() {
           カート
         </div>
 
-        {/* 戻るリンク */}
-        <div style={{ marginBottom: "1rem" }}>
+        {/* 注文画面に戻る */}
+        <div style={{ marginBottom: "1.2rem" }}>
           <Link
             href="/order"
             style={{
@@ -62,55 +62,94 @@ export default function CartPage() {
           </Link>
         </div>
 
-        {cart.length === 0 ? (
+        {/* カートが空の場合 */}
+        {cart.length === 0 && (
           <div
             style={{
-              fontSize: "1.2rem",
               textAlign: "center",
-              color: "#777",
-              marginTop: "2rem",
+              fontSize: "1.2rem",
+              color: "#666",
+              padding: "2rem 0",
             }}
           >
             カートは空です
           </div>
-        ) : (
-          <>
-            <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-              {cart.map((item, index) => (
-                <div
-                  key={index}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    background: "white",
-                    padding: "0.7rem 1rem",
-                    borderRadius: 12,
-                    boxShadow: "0 2px 15px rgba(0,0,0,0.06)",
-                  }}
-                >
-                  <span style={{ fontSize: "1.1rem", fontWeight: 600, color: "#34418e" }}>
-                    {item.name}
-                  </span>
-                  <span style={{ fontSize: "1.1rem", color: "#555" }}>
-                    ¥{item.price.toLocaleString()}
-                  </span>
-                </div>
-              ))}
-            </div>
+        )}
 
-            <div
+        {/* 商品一覧 */}
+        {cart.map((item, index) => (
+          <div
+            key={index}
+            style={{
+              display: "flex",
+              gap: "1rem",
+              padding: "1rem 0",
+              borderBottom: "1px solid #e5e7f3",
+            }}
+          >
+            <img
+              src={item.img}
+              alt={item.name}
               style={{
-                marginTop: "2rem",
-                textAlign: "right",
-                fontSize: "1.3rem",
-                fontWeight: 700,
-                color: "#2e3a8c",
+                width: 80,
+                height: 80,
+                objectFit: "cover",
+                borderRadius: 10,
               }}
-            >
-              合計：¥{total.toLocaleString()}
+            />
+
+            <div style={{ flexGrow: 1 }}>
+              <div style={{ fontSize: "1.1rem", fontWeight: 600, color: "#000" }}>
+                {item.name}
+              </div>
+              <div style={{ color: "#555" }}>¥{item.price.toLocaleString()}</div>
             </div>
-          </>
+          </div>
+        ))}
+
+        {/* 合計金額 */}
+        {cart.length > 0 && (
+          <div
+            style={{
+              textAlign: "right",
+              fontSize: "1.3rem",
+              fontWeight: 700,
+              marginTop: "1.5rem",
+              color: "#2e3a8c",
+            }}
+          >
+            合計：¥{total.toLocaleString()}
+          </div>
+        )}
+
+        {cart.length > 0 && (
+          <div style={{ marginTop: "2rem", textAlign: "center" }}>
+            <Link
+              href="/checkout"
+              style={{
+                display: "inline-block",
+                background: "linear-gradient(87deg,#326dfa 0%,#5a98f9 90%)",
+                color: "white",
+                padding: "0.9rem 2rem",
+                borderRadius: 12,
+                fontSize: "1.1rem",
+                fontWeight: 700,
+                textDecoration: "none",
+                boxShadow: "0 2px 10px rgba(50,109,250,0.25)",
+                transition: "0.2s",
+              }}
+              onMouseOver={(e) =>
+                (e.target.style.background =
+                  "linear-gradient(87deg,#2b59c3 0%,#326dfa 90%)")
+              }
+              onMouseOut={(e) =>
+                (e.target.style.background =
+                  "linear-gradient(87deg,#326dfa 0%,#5a98f9 90%)")
+              }
+            >
+              決済画面へ進む
+            </Link>
+          </div>
         )}
       </div>
     </div>
