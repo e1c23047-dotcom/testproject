@@ -2,13 +2,22 @@
 
 import { useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useCart } from "../../../context/CartContext";
 
 export default function CookingPage() {
   const params = useSearchParams();
   const router = useRouter();
+  const { cart, clearCart } = useCart();
 
   const orderId = Number(params.get("orderId"));
 
+  // ⭐ ① cooking に入った瞬間にカートを空にする
+  useEffect(() => {
+    if (!orderId || cart.length === 0) return;
+    clearCart();
+  }, [orderId]);
+
+  // ⭐ ② 調理完了ポーリング
   useEffect(() => {
     if (!orderId) return;
 
@@ -16,11 +25,11 @@ export default function CookingPage() {
       const res = await fetch("/api/orders");
       const orders = await res.json();
 
-      const order = orders.find(o => o.id === orderId);
+      const order = orders.find((o) => o.id === orderId);
       if (order && order.completed) {
         router.push(`/thanks?pickupNumber=${order.pickupNumber}`);
       }
-    }, 2000); // 2秒ごと確認
+    }, 2000);
 
     return () => clearInterval(timer);
   }, [orderId, router]);

@@ -89,10 +89,10 @@ export default function CartPage() {
             </Link>
 
             <Link
-              href="/checkout"
+              href="/payment"
               className="flex-1 bg-blue-500 text-white py-3 text-center rounded-lg hover:bg-blue-600"
             >
-              注文へ進む
+              決済方法の選択へ進む
             </Link>
           </div>
         </>
