@@ -1,0 +1,44 @@
+[
+  {
+    "id": "osusume1",
+    "name": "おすすめ１",
+    "price": 570,
+    "image": "/osusume1.png",
+    "category": "recommendation"
+  },
+  {
+    "id": "ramen",
+    "name": "ラーメン",
+    "price": 450,
+    "image": "/ramen.png",
+    "category": "noodle"
+  },
+  {
+    "id": "curry",
+    "name": "カレーライス",
+    "price": 400,
+    "image": "/curry.png",
+    "category": "rice"
+  },
+  {
+    "id": "curry_large",
+    "name": "カレーライス（大盛り）",
+    "price": 500,
+    "image": "/curry.png",
+    "category": "large"
+  },
+  {
+    "id": "udon",
+    "name": "うどん",
+    "price": 210,
+    "image": "/udon.png",
+    "category": "noodle"
+  },
+  {
+    "id": "udon_large",
+    "name": "うどん（大盛り）",
+    "price": 310,
+    "image": "/udon.png",
+    "category": "large"
+  }
+]

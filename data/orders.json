@@ -1,0 +1,448 @@
+[
+  {
+    "id": 1764552653242,
+    "pickupNumber": 462,
+    "cart": [
+      {
+        "id": "bigmac",
+        "name": "ハンバーガー",
+        "price": 450,
+        "image": "/menu-burger.png",
+        "category": "burgers",
+        "quantity": 1
+      },
+      {
+        "id": "potato-m",
+        "name": "ポテト M",
+        "price": 290,
+        "image": "/menu-potato.png",
+        "category": "sides",
+        "quantity": 1
+      }
+    ],
+    "total": 740,
+    "createdAt": "2025-12-01T01:30:53.242Z",
+    "completed": true,
+    "served": true
+  },
+  {
+    "id": 1764552676427,
+    "pickupNumber": 919,
+    "cart": [
+      {
+        "id": "potato-m",
+        "name": "ポテト M",
+        "price": 290,
+        "image": "/menu-potato.png",
+        "category": "sides",
+        "quantity": 1
+      },
+      {
+        "id": "bigmac",
+        "name": "ハンバーガー",
+        "price": 450,
+        "image": "/menu-burger.png",
+        "category": "burgers",
+        "quantity": 3
+      },
+      {
+        "id": "cola-m",
+        "name": "コーラ M",
+        "price": 220,
+        "image": "/menu-cola.png",
+        "category": "drinks",
+        "quantity": 1
+      }
+    ],
+    "total": 1860,
+    "createdAt": "2025-12-01T01:31:16.427Z",
+    "completed": true,
+    "served": true
+  },
+  {
+    "id": 1764554212948,
+    "pickupNumber": 148,
+    "cart": [
+      {
+        "id": "bigmac",
+        "name": "ハンバーガー",
+        "price": 450,
+        "image": "/menu-burger.png",
+        "category": "burgers",
+        "quantity": 3
+      },
+      {
+        "id": "potato-m",
+        "name": "ポテト M",
+        "price": 290,
+        "image": "/menu-potato.png",
+        "category": "sides",
+        "quantity": 1
+      }
+    ],
+    "total": 1640,
+    "createdAt": "2025-12-01T01:56:52.948Z",
+    "completed": true,
+    "served": true
+  },
+  {
+    "id": 1764554504884,
+    "pickupNumber": 605,
+    "cart": [
+      {
+        "id": "bigmac",
+        "name": "ハンバーガー",
+        "price": 450,
+        "image": "/menu-burger.png",
+        "category": "burgers",
+        "quantity": 1
+      },
+      {
+        "id": "potato-m",
+        "name": "ポテト M",
+        "price": 290,
+        "image": "/menu-potato.png",
+        "category": "sides",
+        "quantity": 1
+      }
+    ],
+    "total": 740,
+    "createdAt": "2025-12-01T02:01:44.884Z",
+    "completed": true,
+    "served": true
+  },
+  {
+    "id": 1764554507791,
+    "pickupNumber": 605,
+    "cart": [
+      {
+        "id": "bigmac",
+        "name": "ハンバーガー",
+        "price": 450,
+        "image": "/menu-burger.png",
+        "category": "burgers",
+        "quantity": 1
+      },
+      {
+        "id": "potato-m",
+        "name": "ポテト M",
+        "price": 290,
+        "image": "/menu-potato.png",
+        "category": "sides",
+        "quantity": 1
+      }
+    ],
+    "total": 740,
+    "createdAt": "2025-12-01T02:01:47.791Z",
+    "completed": true,
+    "served": true
+  },
+  {
+    "id": 1764554939812,
+    "pickupNumber": 865,
+    "cart": [
+      {
+        "id": "bigmac",
+        "name": "ハンバーガー",
+        "price": 450,
+        "image": "/menu-burger.png",
+        "category": "burgers",
+        "quantity": 1
+      },
+      {
+        "id": "potato-m",
+        "name": "ポテト M",
+        "price": 290,
+        "image": "/menu-potato.png",
+        "category": "sides",
+        "quantity": 1
+      }
+    ],
+    "total": 740,
+    "createdAt": "2025-12-01T02:08:59.812Z",
+    "completed": true,
+    "served": true
+  },
+  {
+    "id": 1764554959129,
+    "pickupNumber": 251,
+    "cart": [
+      {
+        "id": "bigmac",
+        "name": "ハンバーガー",
+        "price": 450,
+        "image": "/menu-burger.png",
+        "category": "burgers",
+        "quantity": 1
+      },
+      {
+        "id": "potato-m",
+        "name": "ポテト M",
+        "price": 290,
+        "image": "/menu-potato.png",
+        "category": "sides",
+        "quantity": 1
+      }
+    ],
+    "total": 740,
+    "createdAt": "2025-12-01T02:09:19.129Z",
+    "completed": true,
+    "served": true
+  },
+  {
+    "id": 1764917014508,
+    "pickupNumber": 261,
+    "cart": [
+      {
+        "id": "bigmac",
+        "name": "ハンバーガー",
+        "price": 450,
+        "image": "/menu-burger.png",
+        "category": "burgers",
+        "quantity": 1
+      },
+      {
+        "id": "potato-m",
+        "name": "ポテト M",
+        "price": 290,
+        "image": "/menu-potato.png",
+        "category": "sides",
+        "quantity": 1
+      }
+    ],
+    "total": 740,
+    "createdAt": "2025-12-05T06:43:34.508Z",
+    "completed": true,
+    "served": true
+  },
+  {
+    "id": 1764919836120,
+    "pickupNumber": 585,
+    "cart": [
+      {
+        "id": "bigmac",
+        "name": "ハンバーガー",
+        "price": 450,
+        "image": "/menu-burger.png",
+        "category": "burgers",
+        "quantity": 1
+      }
+    ],
+    "total": 450,
+    "createdAt": "2025-12-05T07:30:36.120Z",
+    "completed": true,
+    "served": true
+  },
+  {
+    "id": 1764922152573,
+    "pickupNumber": 540,
+    "cart": [
+      {
+        "id": "bigmac",
+        "name": "ハンバーガー",
+        "price": 450,
+        "image": "/menu-burger.png",
+        "category": "burgers",
+        "quantity": 1
+      }
+    ],
+    "total": 450,
+    "createdAt": "2025-12-05T08:09:12.573Z",
+    "completed": true,
+    "served": true
+  },
+  {
+    "id": 1764922600477,
+    "pickupNumber": 263,
+    "cart": [
+      {
+        "id": "bigmac",
+        "name": "ハンバーガー",
+        "price": 450,
+        "image": "/menu-burger.png",
+        "category": "burgers",
+        "quantity": 1
+      },
+      {
+        "id": "potato-m",
+        "name": "ポテト M",
+        "price": 290,
+        "image": "/menu-potato.png",
+        "category": "sides",
+        "quantity": 1
+      }
+    ],
+    "total": 740,
+    "createdAt": "2025-12-05T08:16:40.477Z",
+    "completed": true,
+    "served": true
+  },
+  {
+    "id": 1764922942413,
+    "pickupNumber": 344,
+    "cart": [
+      {
+        "id": "bigmac",
+        "name": "ハンバーガー",
+        "price": 450,
+        "image": "/menu-burger.png",
+        "category": "burgers",
+        "quantity": 1
+      },
+      {
+        "id": "potato-m",
+        "name": "ポテト M",
+        "price": 290,
+        "image": "/menu-potato.png",
+        "category": "sides",
+        "quantity": 1
+      }
+    ],
+    "total": 740,
+    "createdAt": "2025-12-05T08:22:22.413Z",
+    "completed": true,
+    "served": true
+  },
+  {
+    "id": 1764923254917,
+    "pickupNumber": 267,
+    "cart": [
+      {
+        "id": "bigmac",
+        "name": "ハンバーガー",
+        "price": 450,
+        "image": "/menu-burger.png",
+        "category": "burgers",
+        "quantity": 2
+      },
+      {
+        "id": "potato-m",
+        "name": "ポテト M",
+        "price": 290,
+        "image": "/menu-potato.png",
+        "category": "sides",
+        "quantity": 1
+      }
+    ],
+    "total": 1190,
+    "createdAt": "2025-12-05T08:27:34.917Z",
+    "completed": true,
+    "served": true
+  },
+  {
+    "id": 1764923688414,
+    "pickupNumber": 570,
+    "cart": [
+      {
+        "id": "bigmac",
+        "name": "ハンバーガー",
+        "price": 450,
+        "image": "/menu-burger.png",
+        "category": "burgers",
+        "quantity": 1
+      }
+    ],
+    "total": 450,
+    "createdAt": "2025-12-05T08:34:48.414Z",
+    "completed": true,
+    "served": true
+  },
+  {
+    "id": 1765715529442,
+    "pickupNumber": 684,
+    "cart": [
+      {
+        "id": "potato-m",
+        "name": "ポテト M",
+        "price": 290,
+        "image": "/menu-potato.png",
+        "category": "sides",
+        "quantity": 1
+      }
+    ],
+    "total": 290,
+    "createdAt": "2025-12-14T12:32:09.442Z",
+    "completed": true,
+    "served": true
+  },
+  {
+    "id": 1765716235022,
+    "pickupNumber": 302,
+    "cart": [
+      {
+        "id": "cola-m",
+        "name": "コーラ M",
+        "price": 220,
+        "image": "/menu-cola.png",
+        "category": "drinks",
+        "quantity": 1
+      }
+    ],
+    "total": 220,
+    "createdAt": "2025-12-14T12:43:55.022Z",
+    "completed": true,
+    "served": true
+  },
+  {
+    "id": 1765716463526,
+    "pickupNumber": 548,
+    "cart": [
+      {
+        "id": "bigmac",
+        "name": "ハンバーガー",
+        "price": 450,
+        "image": "/menu-burger.png",
+        "category": "burgers",
+        "quantity": 2
+      }
+    ],
+    "total": 900,
+    "createdAt": "2025-12-14T12:47:43.547Z",
+    "completed": true,
+    "served": true
+  },
+  {
+    "id": 1765716535233,
+    "pickupNumber": 887,
+    "cart": [
+      {
+        "id": "bigmac",
+        "name": "ハンバーガー",
+        "price": 450,
+        "image": "/menu-burger.png",
+        "category": "burgers",
+        "quantity": 3
+      }
+    ],
+    "total": 1350,
+    "createdAt": "2025-12-14T12:48:55.236Z",
+    "completed": true,
+    "served": true
+  },
+  {
+    "id": 1765718776286,
+    "pickupNumber": 960,
+    "cart": [
+      {
+        "id": "curry",
+        "name": "カレーライス",
+        "price": 400,
+        "image": "/curry.png",
+        "category": "rice",
+        "quantity": 1
+      },
+      {
+        "id": "osusume1",
+        "name": "おすすめ１",
+        "price": 570,
+        "image": "/osusume1.png",
+        "category": "recommendation",
+        "quantity": 1
+      }
+    ],
+    "total": 970,
+    "createdAt": "2025-12-14T13:26:16.560Z",
+    "completed": true,
+    "served": true
+  }
+]
