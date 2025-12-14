@@ -61,25 +61,29 @@ export default function CheckoutPage() {
 
   // --- 注文確定 ---
   const handleConfirm = async () => {
-    try {
-      await fetch("/api/orders", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          cart,
-          total,
-          paymentType,
-          codeBrand,
-          cardLast4: cardInfo?.number?.slice(-4),
-          pickupNumber,
-          date: new Date().toISOString(),
-        }),
-      });
+  const orderId = Date.now(); // ← 1回だけ生成
 
-    } catch (err) {
-      console.error("注文送信エラー:", err);
-    }
-  };
+  try {
+    await fetch("/api/orders", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        id: orderId,          // ← 明示的に送る
+        cart,
+        total,
+        paymentType,
+        codeBrand,
+        cardLast4: cardInfo?.number?.slice(-4),
+        pickupNumber,
+        date: new Date().toISOString(),
+      }),
+    });
+
+    router.push(`/cooking?orderId=${orderId}`);
+  } catch (err) {
+    console.error("注文送信エラー:", err);
+  }
+};
 
   return (
     <div className="p-6 min-h-screen bg-blue-50">

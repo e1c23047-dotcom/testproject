@@ -1,4 +1,6 @@
 // src/app/api/orders/route.js
+export const dynamic = "force-dynamic";
+
 import fs from "fs";
 import path from "path";
 import { NextResponse } from "next/server";
@@ -32,7 +34,11 @@ function ensureOrdersFile() {
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { cart, total, pickupNumber } = body;
+    const { id, cart, total, pickupNumber } = body;
+
+    if (!id) {
+      return NextResponse.json({ error: "orderId がありません" }, { status: 400 });
+    }
 
     if (!cart || cart.length === 0) {
       return NextResponse.json({ error: "カートが空です" }, { status: 400 });
@@ -43,7 +49,7 @@ export async function POST(request) {
     const orders = JSON.parse(raw || "[]");
 
     const order = {
-      id: Date.now(),
+      id, // ⭐ 受け取った id をそのまま使う
       pickupNumber: pickupNumber ?? Math.floor(Math.random() * 900) + 100,
       cart,
       total,
@@ -54,17 +60,19 @@ export async function POST(request) {
     orders.push(order);
     fs.writeFileSync(fp, JSON.stringify(orders, null, 2), "utf8");
 
-    // SSE に通知（モジュールスコープの clients へ書き込み）
-    // NOTE: Next.js の Response オブジェクトは Node.js の ServerResponse をラップする可能性があるため
-    //       stream 用に route.js 側で別ファイルの stream エンドポイントを用意してます（下記参照）。
     notifySseClients(order);
 
-    return NextResponse.json({ success: true, pickupNumber: order.pickupNumber });
+    return NextResponse.json({
+      success: true,
+      orderId: id,
+      pickupNumber: order.pickupNumber,
+    });
   } catch (err) {
     console.error("POST /api/orders error:", err);
     return NextResponse.json({ error: "サーバーエラー" }, { status: 500 });
   }
 }
+
 
 export async function GET() {
   try {
