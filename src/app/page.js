@@ -85,9 +85,10 @@ export default function Home() {
         <div className="flex gap-3 mb-4">
           {[
             { key: "all", label: "すべて" },
-            { key: "burgers", label: "ハンバーガー" },
-            { key: "sides", label: "サイド" },
-            { key: "drinks", label: "ドリンク" },
+            { key: "recommendation", label: "おすすめ" },
+            { key: "noodle", label: "麺類" },
+            { key: "rice", label: "ご飯もの" },
+            { key: "large", label: "大盛り" },
           ].map((cat) => (
             <button
               key={cat.key}

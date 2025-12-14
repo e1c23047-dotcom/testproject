@@ -418,5 +418,31 @@
     "createdAt": "2025-12-14T12:48:55.236Z",
     "completed": true,
     "served": true
+  },
+  {
+    "id": 1765718776286,
+    "pickupNumber": 960,
+    "cart": [
+      {
+        "id": "curry",
+        "name": "カレーライス",
+        "price": 400,
+        "image": "/curry.png",
+        "category": "rice",
+        "quantity": 1
+      },
+      {
+        "id": "osusume1",
+        "name": "おすすめ１",
+        "price": 570,
+        "image": "/osusume1.png",
+        "category": "recommendation",
+        "quantity": 1
+      }
+    ],
+    "total": 970,
+    "createdAt": "2025-12-14T13:26:16.560Z",
+    "completed": true,
+    "served": true
   }
 ]
