@@ -442,6 +442,25 @@
     ],
     "total": 450,
     "createdAt": "2025-12-11T10:34:01.383Z",
-    "completed": false
+    "completed": true,
+    "served": true
+  },
+  {
+    "id": 1765450102886,
+    "pickupNumber": 827,
+    "cart": [
+      {
+        "id": "bigmac",
+        "name": "ハンバーガー",
+        "price": 450,
+        "image": "/menu-burger.png",
+        "category": "burgers",
+        "quantity": 1
+      }
+    ],
+    "total": 450,
+    "createdAt": "2025-12-11T10:48:22.886Z",
+    "completed": true,
+    "served": true
   }
 ]
