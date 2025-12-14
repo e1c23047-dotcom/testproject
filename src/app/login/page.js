@@ -28,28 +28,28 @@ export default function LoginPage() {
         onSubmit={handleLogin}
         className="bg-white p-8 rounded-lg shadow-md w-full max-w-sm"
       >
-        <h1 className="text-2xl font-bold mb-6 text-blue-700 text-center">
+        <h1 className="text-2xl font-bold mb-6 text-black text-center">
           ログイン
         </h1>
 
         {error && <p className="text-red-500 mb-4">{error}</p>}
 
-        <label className="block mb-2 text-blue-800">メールアドレス</label>
+        <label className="block mb-2 text-black">メールアドレス</label>
         <input
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="w-full p-2 mb-4 border border-blue-300 rounded"
+          className="w-full p-2 mb-4 border border-blue-300 rounded text-black"
         />
 
-        <label className="block mb-2 text-blue-800">パスワード</label>
+        <label className="block mb-2 text-black">パスワード</label>
         <input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          className="w-full p-2 mb-6 border border-blue-300 rounded"
+          className="w-full p-2 mb-6 border border-blue-300 rounded text-black"
         />
 
         <button

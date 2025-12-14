@@ -50,19 +50,20 @@ export default function CartPage() {
                 </p>
               </div>
 
+              {/* 数量操作（黒字） */}
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => decreaseQuantity(item.id)}
-                  className="px-2 py-1 bg-blue-100 text-blue-700 rounded-l"
+                  className="px-2 py-1 bg-blue-100 text-black rounded-l"
                 >
                   -
                 </button>
-                <span className="px-4 py-1 border-t border-b border-blue-200">
+                <span className="px-4 py-1 border-t border-b border-blue-200 text-black">
                   {item.quantity}
                 </span>
                 <button
                   onClick={() => addToCart(item, 1)}
-                  className="px-2 py-1 bg-blue-100 text-blue-700 rounded-r"
+                  className="px-2 py-1 bg-blue-100 text-black rounded-r"
                 >
                   +
                 </button>

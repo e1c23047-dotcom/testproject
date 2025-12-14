@@ -42,7 +42,7 @@ export default function CheckoutPage() {
   }, [cart, paymentType, codeBrand, cardInfo, router]);
 
   if (!ready) {
-    return <p className="p-6">読み込み中...</p>;
+    return <p className="p-6 text-black">読み込み中...</p>;
   }
 
   // --- 表示用 ---
@@ -61,36 +61,38 @@ export default function CheckoutPage() {
 
   // --- 注文確定 ---
   const handleConfirm = async () => {
-  const orderId = Date.now(); // ← 1回だけ生成
+    const orderId = Date.now();
 
-  try {
-    await fetch("/api/orders", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        id: orderId,          // ← 明示的に送る
-        cart,
-        total,
-        paymentType,
-        codeBrand,
-        cardLast4: cardInfo?.number?.slice(-4),
-        pickupNumber,
-        date: new Date().toISOString(),
-      }),
-    });
+    try {
+      await fetch("/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: orderId,
+          cart,
+          total,
+          paymentType,
+          codeBrand,
+          cardLast4: cardInfo?.number?.slice(-4),
+          pickupNumber,
+          date: new Date().toISOString(),
+        }),
+      });
 
-    router.push(`/cooking?orderId=${orderId}`);
-  } catch (err) {
-    console.error("注文送信エラー:", err);
-  }
-};
+      router.push(`/cooking?orderId=${orderId}`);
+    } catch (err) {
+      console.error("注文送信エラー:", err);
+    }
+  };
 
   return (
     <div className="p-6 min-h-screen bg-blue-50">
-      <h1 className="text-xl font-bold mb-6">注文内容の確認</h1>
+      <h1 className="text-xl font-bold mb-6 text-black">
+        注文内容の確認
+      </h1>
 
       {/* --- 商品一覧 --- */}
-      <div className="bg-white rounded-lg shadow p-4 mb-6">
+      <div className="bg-white rounded-lg shadow p-4 mb-6 text-black">
         <h2 className="font-bold mb-3">商品</h2>
 
         {cart.map((item) => (
@@ -111,7 +113,7 @@ export default function CheckoutPage() {
       </div>
 
       {/* --- 支払い方法 --- */}
-      <div className="bg-white rounded-lg shadow p-4 mb-6">
+      <div className="bg-white rounded-lg shadow p-4 mb-6 text-black">
         <h2 className="font-bold mb-3">支払い方法</h2>
 
         <p className="mb-1">
@@ -134,9 +136,8 @@ export default function CheckoutPage() {
         )}
       </div>
 
-      {/* --- ボタン（※あなた指定の構成を維持） --- */}
+      {/* --- ボタン --- */}
       <div className="flex gap-4 mt-6">
-        {/* 左：ホームに戻る */}
         <Link
           href="/"
           className="flex-1 bg-blue-500 text-white py-3 text-center rounded-lg hover:bg-blue-600"
@@ -144,7 +145,6 @@ export default function CheckoutPage() {
           ホームに戻る
         </Link>
 
-        {/* 右：注文確定 */}
         <Link
           href={{
             pathname: "/cooking",
