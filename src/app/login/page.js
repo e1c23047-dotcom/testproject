@@ -34,22 +34,22 @@ export default function LoginPage() {
 
         {error && <p className="text-red-500 mb-4">{error}</p>}
 
-        <label className="block mb-2 text-blue-800">メールアドレス</label>
+        <label className="block mb-2 text-blue-900">メールアドレス</label>
         <input
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="w-full p-2 mb-4 border border-blue-300 rounded"
+          className="w-full p-2 mb-4 border border-blue-300 rounded text-gray-900"
         />
 
-        <label className="block mb-2 text-blue-800">パスワード</label>
+        <label className="block mb-2 text-blue-900">パスワード</label>
         <input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          className="w-full p-2 mb-6 border border-blue-300 rounded"
+          className="w-full p-2 mb-6 border border-blue-300 rounded text-gray-900"
         />
 
         <button
