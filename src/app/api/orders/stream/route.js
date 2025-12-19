@@ -7,18 +7,24 @@ class OrderStream {
     this.clients = new Set();
   }
 
-  add(res) {
-    this.clients.add(res);
+  add(client) {
+    this.clients.add(client);
   }
 
-  remove(res) {
-    this.clients.delete(res);
+  remove(client) {
+    this.clients.delete(client);
   }
 
   send(data) {
     const msg = `data: ${JSON.stringify(data)}\n\n`;
+
     for (const client of this.clients) {
-      client.write(msg);
+      try {
+        client.write(msg);
+      } catch (e) {
+        // 壊れた接続は削除
+        this.clients.delete(client);
+      }
     }
   }
 }
@@ -28,22 +34,31 @@ if (!globalThis.orderStream) {
 }
 
 export async function GET() {
+  let client;
+
   const stream = new ReadableStream({
     start(controller) {
       const encoder = new TextEncoder();
-      const write = (msg) => controller.enqueue(encoder.encode(msg));
 
-      const client = {
-        write,
+      client = {
+        write(msg) {
+          controller.enqueue(encoder.encode(msg));
+        },
       };
 
       globalThis.orderStream.add(client);
 
-      write(`event: connect\ndata: ok\n\n`);
+      // 接続確認
+      controller.enqueue(
+        encoder.encode(`event: connect\ndata: ok\n\n`)
+      );
+    },
 
-      controller.onclose = () => {
+    // ★ ここが重要：クライアント切断時に呼ばれる
+    cancel() {
+      if (client) {
         globalThis.orderStream.remove(client);
-      };
+      }
     },
   });
 
