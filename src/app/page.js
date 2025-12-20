@@ -16,27 +16,26 @@ export default function Home() {
   const [quantities, setQuantities] = useState({});
   const [viewMode, setViewMode] = useState("card");
 
-  // ログインチェック
+  // 🔹 ログインチェック
   useEffect(() => {
     const loggedIn = localStorage.getItem("loggedIn");
-    if (!loggedIn) router.push("/login");
+    if (!loggedIn) {
+      router.push("/login");
+    }
   }, [router]);
 
-  // 商品読み込み
+  // 🔹 商品読み込み
   useEffect(() => {
     fetch("/products.json")
       .then((r) => r.json())
       .then((data) => {
         setProducts(data);
-        const initial = data.reduce(
-          (acc, p) => ({ ...acc, [p.id]: 1 }),
-          {}
-        );
+        const initial = data.reduce((acc, p) => ({ ...acc, [p.id]: 1 }), {});
         setQuantities(initial);
       });
   }, []);
 
-  // カート追加
+  // 🔹 カート追加
   const handleAdd = (product) => {
     addToCart(product, quantities[product.id]);
     setAddedProduct(product.id);
@@ -49,7 +48,7 @@ export default function Home() {
     setTimeout(() => setAddedProduct(null), 2000);
   };
 
-  // ログアウト
+  // 🔹 ログアウト
   const handleLogout = () => {
     localStorage.removeItem("loggedIn");
     router.push("/login");
@@ -86,8 +85,8 @@ export default function Home() {
           商品をカテゴリーから選べます。
         </p>
 
-        {/* Category Tabs */}
-        <div className="flex gap-3 mb-4">
+        {/* ================= カテゴリタブ（修正済み） ================= */}
+        <div className="flex gap-3 mb-4 flex-wrap justify-center">
           {[
             { key: "all", label: "すべて" },
             { key: "recommendation", label: "おすすめ" },
@@ -98,10 +97,10 @@ export default function Home() {
             <button
               key={cat.key}
               onClick={() => setSelectedCategory(cat.key)}
-              className={`px-4 py-2 rounded ${
+              className={`px-4 py-2 rounded whitespace-nowrap min-w-[90px] text-center ${
                 selectedCategory === cat.key
                   ? "bg-blue-500 text-white"
-                  : "bg-gray-200 text-black"
+                  : "bg-gray-200"
               }`}
             >
               {cat.label}
@@ -116,7 +115,7 @@ export default function Home() {
             className={`px-4 py-2 rounded ${
               viewMode === "card"
                 ? "bg-blue-500 text-white"
-                : "bg-gray-200 text-black"
+                : "bg-gray-200"
             }`}
           >
             カード表示
@@ -126,7 +125,7 @@ export default function Home() {
             className={`px-4 py-2 rounded ${
               viewMode === "list"
                 ? "bg-blue-500 text-white"
-                : "bg-gray-200 text-black"
+                : "bg-gray-200"
             }`}
           >
             リスト表示
@@ -161,7 +160,6 @@ export default function Home() {
                     ¥{p.price}
                   </p>
 
-                  {/* 数量選択（黒字） */}
                   <div className="flex items-center mb-2">
                     <button
                       onClick={() =>
@@ -170,11 +168,11 @@ export default function Home() {
                           [p.id]: Math.max(1, prev[p.id] - 1),
                         }))
                       }
-                      className="px-2 py-1 bg-[#dff1ff] text-black rounded-l"
+                      className="px-2 py-1 bg-[#dff1ff] rounded-l"
                     >
                       -
                     </button>
-                    <span className="px-4 py-1 border-t border-b border-[#cce8ff] text-black">
+                    <span className="px-4 py-1 border">
                       {quantities[p.id]}
                     </span>
                     <button
@@ -184,7 +182,7 @@ export default function Home() {
                           [p.id]: prev[p.id] + 1,
                         }))
                       }
-                      className="px-2 py-1 bg-[#dff1ff] text-black rounded-r"
+                      className="px-2 py-1 bg-[#dff1ff] rounded-r"
                     >
                       +
                     </button>
@@ -192,10 +190,10 @@ export default function Home() {
 
                   <button
                     onClick={() => handleAdd(p)}
-                    className={`w-full py-2 mt-2 rounded-lg shadow text-white ${
+                    className={`w-full py-2 rounded-lg text-white ${
                       addedProduct === p.id
                         ? "bg-green-500"
-                        : "bg-[#3da9fc] hover:bg-[#0f8be6]"
+                        : "bg-[#3da9fc]"
                     }`}
                   >
                     {addedProduct === p.id
@@ -216,7 +214,7 @@ export default function Home() {
               .map((p) => (
                 <div
                   key={p.id}
-                  className="flex items-center gap-4 bg-white p-4 rounded-lg shadow-md border border-[#cce8ff]"
+                  className="flex items-center gap-4 bg-white p-4 rounded-lg shadow border"
                 >
                   <Image
                     src={p.image}
@@ -226,49 +224,25 @@ export default function Home() {
                     className="rounded"
                   />
                   <div className="flex-1">
-                    <p className="font-bold text-[#1e3a8a]">{p.name}</p>
-                    <p className="text-sm text-[#3c4f76]">¥{p.price}</p>
-
-                    {/* 数量選択（黒字） */}
-                    <div className="flex items-center mt-2">
-                      <button
-                        onClick={() =>
-                          setQuantities((prev) => ({
-                            ...prev,
-                            [p.id]: Math.max(1, prev[p.id] - 1),
-                          }))
-                        }
-                        className="px-2 py-1 bg-[#dff1ff] text-black rounded-l"
-                      >
-                        -
-                      </button>
-                      <span className="px-4 py-1 border-t border-b border-[#cce8ff] text-black">
-                        {quantities[p.id]}
-                      </span>
-                      <button
-                        onClick={() =>
-                          setQuantities((prev) => ({
-                            ...prev,
-                            [p.id]: prev[p.id] + 1,
-                          }))
-                        }
-                        className="px-2 py-1 bg-[#dff1ff] text-black rounded-r"
-                      >
-                        +
-                      </button>
-                    </div>
+                    <p className="font-bold text-[#1e3a8a]">
+                      {p.name}
+                    </p>
+                    <p className="text-sm text-[#3c4f76]">
+                      ¥{p.price}
+                    </p>
                   </div>
 
                   <button
-                    onClick={() => handleAdd(p)}
-                    className={`px-4 py-2 rounded-lg shadow text-white ${
-                      addedProduct === p.id
-                        ? "bg-green-500"
-                        : "bg-[#3da9fc] hover:bg-[#0f8be6]"
-                    }`}
+                   onClick={() => handleAdd(p)}
+                   className={`px-4 py-2 rounded text-white ${
+                     addedProduct === p.id
+                      ? "bg-green-500"
+                      : "bg-[#3da9fc]"
+                   }`}
                   >
                     {addedProduct === p.id ? "追加済" : "追加"}
                   </button>
+
                 </div>
               ))}
           </div>
