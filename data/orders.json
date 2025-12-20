@@ -1016,5 +1016,23 @@
     "createdAt": "2025-12-20T04:36:01.499Z",
     "completed": true,
     "served": true
+  },
+  {
+    "id": 1766206924149,
+    "pickupNumber": 874,
+    "cart": [
+      {
+        "id": "ramen",
+        "name": "ラーメン",
+        "price": 450,
+        "image": "/ramen.png",
+        "category": "noodle",
+        "quantity": 1
+      }
+    ],
+    "total": 450,
+    "createdAt": "2025-12-20T05:02:04.199Z",
+    "completed": true,
+    "served": true
   }
 ]
