@@ -534,5 +534,31 @@
     "createdAt": "2025-12-20T05:02:54.498Z",
     "completed": true,
     "served": true
+  },
+  {
+    "id": 1766209858016,
+    "pickupNumber": 357,
+    "cart": [
+      {
+        "id": "osusume1",
+        "name": "おすすめ１",
+        "price": 570,
+        "image": "/osusume1.png",
+        "category": "recommendation",
+        "quantity": 1
+      },
+      {
+        "id": "ramen",
+        "name": "ラーメン",
+        "price": 450,
+        "image": "/ramen.png",
+        "category": "noodle",
+        "quantity": 1
+      }
+    ],
+    "total": 1020,
+    "createdAt": "2025-12-20T05:50:58.020Z",
+    "completed": true,
+    "served": true
   }
 ]
