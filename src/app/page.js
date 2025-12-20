@@ -19,9 +19,7 @@ export default function Home() {
   // 🔹 ログインチェック
   useEffect(() => {
     const loggedIn = localStorage.getItem("loggedIn");
-    if (!loggedIn) {
-      router.push("/login");
-    }
+    if (!loggedIn) router.push("/login");
   }, [router]);
 
   // 🔹 商品読み込み
@@ -30,7 +28,10 @@ export default function Home() {
       .then((r) => r.json())
       .then((data) => {
         setProducts(data);
-        const initial = data.reduce((acc, p) => ({ ...acc, [p.id]: 1 }), {});
+        const initial = data.reduce(
+          (acc, p) => ({ ...acc, [p.id]: 1 }),
+          {}
+        );
         setQuantities(initial);
       });
   }, []);
@@ -85,7 +86,7 @@ export default function Home() {
           商品をカテゴリーから選べます。
         </p>
 
-        {/* ================= カテゴリタブ（修正済み） ================= */}
+        {/* カテゴリタブ */}
         <div className="flex gap-3 mb-4 flex-wrap justify-center">
           {[
             { key: "all", label: "すべて" },
@@ -97,10 +98,10 @@ export default function Home() {
             <button
               key={cat.key}
               onClick={() => setSelectedCategory(cat.key)}
-              className={`px-4 py-2 rounded whitespace-nowrap min-w-[90px] text-center ${
+              className={`px-4 py-2 rounded min-w-[90px] ${
                 selectedCategory === cat.key
                   ? "bg-blue-500 text-white"
-                  : "bg-gray-200"
+                  : "bg-gray-200 text-gray-900"
               }`}
             >
               {cat.label}
@@ -108,14 +109,14 @@ export default function Home() {
           ))}
         </div>
 
-        {/* 表示モード切替 */}
+        {/* 表示切替 */}
         <div className="flex gap-3 mb-6">
           <button
             onClick={() => setViewMode("card")}
             className={`px-4 py-2 rounded ${
               viewMode === "card"
                 ? "bg-blue-500 text-white"
-                : "bg-gray-200"
+                : "bg-gray-200 text-gray-900"
             }`}
           >
             カード表示
@@ -125,7 +126,7 @@ export default function Home() {
             className={`px-4 py-2 rounded ${
               viewMode === "list"
                 ? "bg-blue-500 text-white"
-                : "bg-gray-200"
+                : "bg-gray-200 text-gray-900"
             }`}
           >
             リスト表示
@@ -144,7 +145,7 @@ export default function Home() {
               .map((p) => (
                 <div
                   key={p.id}
-                  className="rounded-lg bg-white p-3 shadow-md border border-[#cce8ff]"
+                  className="rounded-lg bg-white p-3 shadow-md border"
                 >
                   <Image
                     src={p.image}
@@ -153,13 +154,14 @@ export default function Home() {
                     height={200}
                     className="rounded-md"
                   />
-                  <p className="font-medium mt-2 text-[#1e3a8a]">
+                  <p className="font-medium mt-2 text-gray-900">
                     {p.name}
                   </p>
-                  <p className="text-sm text-[#3c4f76] mb-2">
+                  <p className="text-sm text-gray-700 mb-2">
                     ¥{p.price}
                   </p>
 
+                  {/* 数量（黒字固定） */}
                   <div className="flex items-center mb-2">
                     <button
                       onClick={() =>
@@ -168,11 +170,11 @@ export default function Home() {
                           [p.id]: Math.max(1, prev[p.id] - 1),
                         }))
                       }
-                      className="px-2 py-1 bg-[#dff1ff] rounded-l"
+                      className="px-2 py-1 bg-[#dff1ff] text-gray-900 rounded-l"
                     >
                       -
                     </button>
-                    <span className="px-4 py-1 border">
+                    <span className="px-4 py-1 border text-gray-900 font-medium">
                       {quantities[p.id]}
                     </span>
                     <button
@@ -182,7 +184,7 @@ export default function Home() {
                           [p.id]: prev[p.id] + 1,
                         }))
                       }
-                      className="px-2 py-1 bg-[#dff1ff] rounded-r"
+                      className="px-2 py-1 bg-[#dff1ff] text-gray-900 rounded-r"
                     >
                       +
                     </button>
@@ -224,25 +226,24 @@ export default function Home() {
                     className="rounded"
                   />
                   <div className="flex-1">
-                    <p className="font-bold text-[#1e3a8a]">
+                    <p className="font-bold text-gray-900">
                       {p.name}
                     </p>
-                    <p className="text-sm text-[#3c4f76]">
+                    <p className="text-sm text-gray-700">
                       ¥{p.price}
                     </p>
                   </div>
 
                   <button
-                   onClick={() => handleAdd(p)}
-                   className={`px-4 py-2 rounded text-white ${
-                     addedProduct === p.id
-                      ? "bg-green-500"
-                      : "bg-[#3da9fc]"
-                   }`}
+                    onClick={() => handleAdd(p)}
+                    className={`px-4 py-2 rounded text-white ${
+                      addedProduct === p.id
+                        ? "bg-green-500"
+                        : "bg-[#3da9fc]"
+                    }`}
                   >
                     {addedProduct === p.id ? "追加済" : "追加"}
                   </button>
-
                 </div>
               ))}
           </div>
