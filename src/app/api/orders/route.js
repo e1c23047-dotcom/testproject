@@ -8,20 +8,7 @@ import { NextResponse } from "next/server";
 // SSE クライアント用のグローバル（モジュールスコープ）
 // 同一サーバーインスタンス内で接続されている EventSource のレスポンスに書き込むために使う
 // 注意: サーバーが複数インスタンスで動く場合は外部 Pub/Sub が必要 (Redis, Supabase Realtime 等)
-const sseClients = new Set();
 
-function notifySseClients(order) {
-  const payload = `data: ${JSON.stringify(order)}\n\n`;
-  for (const res of sseClients) {
-    try {
-      res.write(payload);
-    } catch (e) {
-      // クライアント切断などの例外が出る場合は削除
-      try { res.end(); } catch (_) {}
-      sseClients.delete(res);
-    }
-  }
-}
 
 function ensureOrdersFile() {
   const dataDir = path.join(process.cwd(), "data");
@@ -49,18 +36,20 @@ export async function POST(request) {
     const orders = JSON.parse(raw || "[]");
 
     const order = {
-      id, // ⭐ 受け取った id をそのまま使う
+      id,
       pickupNumber: pickupNumber ?? Math.floor(Math.random() * 900) + 100,
       cart,
       total,
       createdAt: new Date().toISOString(),
       completed: false,
+      served: false,
     };
 
     orders.push(order);
     fs.writeFileSync(fp, JSON.stringify(orders, null, 2), "utf8");
 
-    notifySseClients(order);
+    // ★ ここが重要（SSE通知）
+    globalThis.orderStream?.send(order);
 
     return NextResponse.json({
       success: true,
@@ -72,6 +61,7 @@ export async function POST(request) {
     return NextResponse.json({ error: "サーバーエラー" }, { status: 500 });
   }
 }
+
 
 
 export async function GET() {
@@ -86,5 +76,4 @@ export async function GET() {
   }
 }
 
-// エクスポートして stream ルートからアクセスできるようにする
-export { sseClients, notifySseClients };
+
