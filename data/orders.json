@@ -998,5 +998,23 @@
     "createdAt": "2025-12-19T17:02:03.510Z",
     "completed": true,
     "served": true
+  },
+  {
+    "id": 1766205360848,
+    "pickupNumber": 253,
+    "cart": [
+      {
+        "id": "osusume1",
+        "name": "おすすめ１",
+        "price": 570,
+        "image": "/osusume1.png",
+        "category": "recommendation",
+        "quantity": 1
+      }
+    ],
+    "total": 570,
+    "createdAt": "2025-12-20T04:36:01.499Z",
+    "completed": true,
+    "served": true
   }
 ]
