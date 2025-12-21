@@ -16,7 +16,7 @@ export default function ThanksPage() {
       {pickupNumber ? (
         <p className="mb-4 text-lg text-[#3c4f76]">
           受け取り番号:{" "}
-          <span className="font-bold text-[#3da9fc]">
+          <span className="font-bold text-[#2563eb] text-xl bg-white px-3 py-1 rounded-md shadow">
             {pickupNumber}
           </span>
         </p>

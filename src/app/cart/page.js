@@ -21,11 +21,11 @@ export default function CartPage() {
 
   return (
     <div className="p-6 bg-blue-50 min-h-screen">
-      <h1 className="text-xl font-bold mb-4 text-blue-700">カート</h1>
+      <h1 className="text-xl font-bold mb-4 text-black">カート</h1>
 
       {cart.length === 0 ? (
         <>
-          <p className="text-blue-700">カートは空です。</p>
+          <p className="text-black">カートは空です。</p>
 
           <div className="mt-4">
             <Link
@@ -44,13 +44,12 @@ export default function CartPage() {
               className="flex justify-between items-center bg-white p-3 rounded-lg shadow mb-2"
             >
               <div>
-                <p className="font-medium text-blue-800">{item.name}</p>
-                <p className="text-sm text-blue-600">
+                <p className="font-medium text-black">{item.name}</p>
+                <p className="text-sm text-gray-700">
                   ¥{item.price} × {item.quantity}
                 </p>
               </div>
 
-              {/* 数量操作（黒字） */}
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => decreaseQuantity(item.id)}
@@ -58,7 +57,7 @@ export default function CartPage() {
                 >
                   -
                 </button>
-                <span className="px-4 py-1 border-t border-b border-blue-200 text-black">
+                <span className="px-4 py-1 border-t border-b border-gray-300 text-black">
                   {item.quantity}
                 </span>
                 <button
@@ -69,7 +68,7 @@ export default function CartPage() {
                 </button>
                 <button
                   onClick={() => removeFromCart(item.id)}
-                  className="text-blue-600 ml-2 hover:underline"
+                  className="text-black ml-2 hover:underline"
                 >
                   削除
                 </button>
@@ -77,7 +76,7 @@ export default function CartPage() {
             </div>
           ))}
 
-          <p className="font-bold text-lg mt-4 text-blue-800">
+          <p className="font-bold text-lg mt-4 text-black">
             合計：¥{total}
           </p>
 

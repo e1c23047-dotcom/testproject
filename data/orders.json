@@ -578,5 +578,59 @@
     "createdAt": "2025-12-20T05:52:43.624Z",
     "completed": true,
     "served": true
+  },
+  {
+    "id": 1766297520960,
+    "pickupNumber": 917,
+    "cart": [
+      {
+        "id": "ramen",
+        "name": "ラーメン",
+        "price": 450,
+        "image": "/ramen.png",
+        "category": "noodle",
+        "quantity": 1
+      }
+    ],
+    "total": 450,
+    "createdAt": "2025-12-21T06:12:00.982Z",
+    "completed": true,
+    "served": true
+  },
+  {
+    "id": 1766297546694,
+    "pickupNumber": 943,
+    "cart": [
+      {
+        "id": "curry",
+        "name": "カレーライス",
+        "price": 400,
+        "image": "/curry.png",
+        "category": "rice",
+        "quantity": 1
+      }
+    ],
+    "total": 400,
+    "createdAt": "2025-12-21T06:12:26.720Z",
+    "completed": true,
+    "served": true
+  },
+  {
+    "id": 1766297567659,
+    "pickupNumber": 990,
+    "cart": [
+      {
+        "id": "udon",
+        "name": "うどん",
+        "price": 210,
+        "image": "/udon.png",
+        "category": "noodle",
+        "quantity": 1
+      }
+    ],
+    "total": 210,
+    "createdAt": "2025-12-21T06:12:47.682Z",
+    "completed": true,
+    "served": true
   }
 ]

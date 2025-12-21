@@ -19,7 +19,9 @@ export default function Home() {
   // 🔹 ログインチェック
   useEffect(() => {
     const loggedIn = localStorage.getItem("loggedIn");
-    if (!loggedIn) router.push("/login");
+    if (!loggedIn) {
+      router.push("/login");
+    }
   }, [router]);
 
   // 🔹 商品読み込み
@@ -62,14 +64,9 @@ export default function Home() {
       <main className="flex min-h-screen w-full max-w-md flex-col items-center py-10 px-6">
         {/* Header */}
         <div className="flex w-full items-center justify-between mb-8">
-          <Image src="/mc-logo.png" alt="Logo" width={50} height={50} />
-          <div className="flex items-center gap-2">
-            <Link
-              href="/cart"
-              className="rounded-full bg-[#3da9fc] hover:bg-[#0f8be6] px-4 py-2 text-white text-sm font-semibold shadow"
-            >
-              カート
-            </Link>
+          {/* 左：ロゴ + ログアウト */}
+          <div className="flex items-center gap-3">
+            <Image src="/mc-logo.png" alt="Logo" width={50} height={50} />
             <button
               onClick={handleLogout}
               className="rounded-full bg-red-500 hover:bg-red-600 px-4 py-2 text-white text-sm font-semibold shadow"
@@ -77,6 +74,14 @@ export default function Home() {
               ログアウト
             </button>
           </div>
+
+          {/* 右：カート */}
+          <Link
+            href="/cart"
+            className="rounded-full bg-[#3da9fc] hover:bg-[#0f8be6] px-4 py-2 text-white text-sm font-semibold shadow"
+          >
+            カート
+          </Link>
         </div>
 
         <h1 className="text-3xl font-bold text-[#1e3a8a] mb-4">
@@ -98,10 +103,10 @@ export default function Home() {
             <button
               key={cat.key}
               onClick={() => setSelectedCategory(cat.key)}
-              className={`px-4 py-2 rounded min-w-[90px] ${
+              className={`px-4 py-2 rounded whitespace-nowrap min-w-[90px] ${
                 selectedCategory === cat.key
                   ? "bg-blue-500 text-white"
-                  : "bg-gray-200 text-gray-900"
+                  : "bg-gray-200"
               }`}
             >
               {cat.label}
@@ -109,14 +114,14 @@ export default function Home() {
           ))}
         </div>
 
-        {/* 表示切替 */}
+        {/* 表示モード切替 */}
         <div className="flex gap-3 mb-6">
           <button
             onClick={() => setViewMode("card")}
             className={`px-4 py-2 rounded ${
               viewMode === "card"
                 ? "bg-blue-500 text-white"
-                : "bg-gray-200 text-gray-900"
+                : "bg-gray-200"
             }`}
           >
             カード表示
@@ -126,7 +131,7 @@ export default function Home() {
             className={`px-4 py-2 rounded ${
               viewMode === "list"
                 ? "bg-blue-500 text-white"
-                : "bg-gray-200 text-gray-900"
+                : "bg-gray-200"
             }`}
           >
             リスト表示
@@ -154,14 +159,13 @@ export default function Home() {
                     height={200}
                     className="rounded-md"
                   />
-                  <p className="font-medium mt-2 text-gray-900">
+                  <p className="font-medium mt-2 text-[#1e3a8a]">
                     {p.name}
                   </p>
-                  <p className="text-sm text-gray-700 mb-2">
+                  <p className="text-sm text-[#3c4f76] mb-2">
                     ¥{p.price}
                   </p>
 
-                  {/* 数量（黒字固定） */}
                   <div className="flex items-center mb-2">
                     <button
                       onClick={() =>
@@ -170,11 +174,11 @@ export default function Home() {
                           [p.id]: Math.max(1, prev[p.id] - 1),
                         }))
                       }
-                      className="px-2 py-1 bg-[#dff1ff] text-gray-900 rounded-l"
+                      className="px-2 py-1 bg-[#dff1ff] rounded-l"
                     >
                       -
                     </button>
-                    <span className="px-4 py-1 border text-gray-900 font-medium">
+                    <span className="px-4 py-1 border">
                       {quantities[p.id]}
                     </span>
                     <button
@@ -184,7 +188,7 @@ export default function Home() {
                           [p.id]: prev[p.id] + 1,
                         }))
                       }
-                      className="px-2 py-1 bg-[#dff1ff] text-gray-900 rounded-r"
+                      className="px-2 py-1 bg-[#dff1ff] rounded-r"
                     >
                       +
                     </button>
@@ -226,10 +230,10 @@ export default function Home() {
                     className="rounded"
                   />
                   <div className="flex-1">
-                    <p className="font-bold text-gray-900">
+                    <p className="font-bold text-[#1e3a8a]">
                       {p.name}
                     </p>
-                    <p className="text-sm text-gray-700">
+                    <p className="text-sm text-[#3c4f76]">
                       ¥{p.price}
                     </p>
                   </div>

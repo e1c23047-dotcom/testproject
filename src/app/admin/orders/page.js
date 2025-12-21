@@ -16,8 +16,10 @@ export default function AdminOrdersPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(update),
       });
+
       if (!res.ok) return;
 
+      // 即時UI反映
       setOrders((prev) =>
         prev.map((o) =>
           String(o.id) === String(id) ? { ...o, ...update } : o
@@ -43,6 +45,7 @@ export default function AdminOrdersPage() {
     es.onmessage = (e) => {
       try {
         const order = JSON.parse(e.data);
+        // 新規注文は一旦先頭に入るが、表示時に sort される
         setOrders((prev) => [order, ...prev]);
       } catch {}
     };
@@ -50,48 +53,81 @@ export default function AdminOrdersPage() {
     return () => es.close();
   }, []);
 
-  if (loading) return <p className="p-6 text-black">読み込み中...</p>;
+  if (loading) return <p className="p-6">読み込み中...</p>;
 
+  // ---------------- 当日の開始時刻 ----------------
   const startOfToday = new Date();
   startOfToday.setHours(0, 0, 0, 0);
 
-  const activeOrders = orders.filter((o) => !o.served);
-  const servedOrdersToday = orders.filter((o) => {
-    if (!o.served) return false;
-    return new Date(o.createdAt) >= startOfToday;
-  });
+  // ---------------- 表示用（昇順ソート済み） ----------------
 
+  // 提供待ち（served === false）
+  const activeOrders = orders
+    .filter((o) => !o.served)
+    .sort(
+      (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+    );
+
+  // 提供済み（当日分のみ）
+  const servedOrdersToday = orders
+    .filter((o) => {
+      if (!o.served) return false;
+      const createdAt = new Date(o.createdAt);
+      return createdAt >= startOfToday;
+    })
+    .sort(
+      (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+    );
+
+  // 提供待ち件数
   const activeCount = activeOrders.length;
 
   return (
-    <div className="p-6 bg-blue-50 min-h-screen text-black">
-      <h1 className="text-2xl font-bold mb-6">
+    <div className="p-6 bg-blue-50 min-h-screen">
+      <h1 className="text-2xl font-bold text-blue-700 mb-6">
         注文一覧（管理者）
       </h1>
 
-      {/* タブ */}
+      {/* ---------------- タブ ---------------- */}
       <div className="flex gap-3 mb-6">
-        {[
-          { key: "all", label: "すべて" },
-          { key: "active", label: `提供待ち (${activeCount})` },
-          { key: "served", label: "提供済み（当日）" },
-        ].map((t) => (
-          <button
-            key={t.key}
-            onClick={() => setSelectedStatus(t.key)}
-            className={`px-4 py-2 rounded font-medium ${
-              selectedStatus === t.key
-                ? "bg-blue-500 text-white"
-                : "bg-gray-200 text-black"
-            }`}
-          >
-            {t.label}
-          </button>
-        ))}
+        <button
+          onClick={() => setSelectedStatus("all")}
+          className={`px-4 py-2 rounded ${
+            selectedStatus === "all"
+              ? "bg-blue-500 text-white"
+              : "bg-gray-200"
+          }`}
+        >
+          すべて
+        </button>
+
+        <button
+          onClick={() => setSelectedStatus("active")}
+          className={`px-4 py-2 rounded ${
+            selectedStatus === "active"
+              ? "bg-blue-500 text-white"
+              : "bg-gray-200"
+          }`}
+        >
+          提供待ち ({activeCount})
+        </button>
+
+        <button
+          onClick={() => setSelectedStatus("served")}
+          className={`px-4 py-2 rounded ${
+            selectedStatus === "served"
+              ? "bg-blue-500 text-white"
+              : "bg-gray-200"
+          }`}
+        >
+          提供済み（当日）
+        </button>
       </div>
 
+      {/* ---------------- 表示切替 ---------------- */}
       {selectedStatus === "all" ? (
         <>
+          {/* 提供待ち */}
           <h2 className="text-xl font-bold mb-2">
             提供待ち ({activeCount})
           </h2>
@@ -99,8 +135,10 @@ export default function AdminOrdersPage() {
             list={activeOrders}
             onCookFinish={(id) => updateOrder(id, { completed: true })}
             onServeFinish={(id) => updateOrder(id, { served: true })}
+            disabled={false}
           />
 
+          {/* 提供済み（当日） */}
           <h2 className="text-xl font-bold mt-10 mb-2">
             提供済み（当日）
           </h2>
@@ -111,6 +149,7 @@ export default function AdminOrdersPage() {
           list={activeOrders}
           onCookFinish={(id) => updateOrder(id, { completed: true })}
           onServeFinish={(id) => updateOrder(id, { served: true })}
+          disabled={false}
         />
       ) : (
         <OrderList list={servedOrdersToday} disabled />
@@ -121,28 +160,22 @@ export default function AdminOrdersPage() {
 
 // ---------------- 注文リスト ----------------
 function OrderList({ list, onCookFinish, onServeFinish, disabled }) {
-  if (list.length === 0)
-    return <p className="text-black">なし</p>;
+  if (list.length === 0) return <p>なし</p>;
 
   return (
     <div className="space-y-4">
       {list.map((o) => (
-        <div
-          key={o.id}
-          className="p-4 rounded shadow border bg-white text-black"
-        >
+        <div key={o.id} className="p-4 rounded shadow border bg-white">
           <div className="flex justify-between">
             <div>
               <p className="font-bold">
                 受取番号: {o.pickupNumber}
               </p>
-              <p className="text-sm text-black">
+              <p className="text-sm text-gray-600">
                 {new Date(o.createdAt).toLocaleString()}
               </p>
             </div>
-            <p className="font-bold">
-              合計 ¥{o.total}
-            </p>
+            <p className="font-bold">合計 ¥{o.total}</p>
           </div>
 
           <div className="mt-2">
@@ -151,9 +184,7 @@ function OrderList({ list, onCookFinish, onServeFinish, disabled }) {
                 <span>
                   {i.name} × {i.quantity}
                 </span>
-                <span>
-                  ¥{i.price * i.quantity}
-                </span>
+                <span>¥{i.price * i.quantity}</span>
               </div>
             ))}
           </div>
@@ -181,7 +212,7 @@ function OrderList({ list, onCookFinish, onServeFinish, disabled }) {
           )}
 
           {disabled && (
-            <p className="mt-3 text-right font-bold text-black">
+            <p className="mt-3 text-right text-green-700 font-bold">
               提供済み
             </p>
           )}
