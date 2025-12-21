@@ -21,11 +21,11 @@ export default function CartPage() {
 
   return (
     <div className="p-6 bg-blue-50 min-h-screen">
-      <h1 className="text-xl font-bold mb-4 text-blue-700">カート</h1>
+      <h1 className="text-xl font-bold mb-4 text-black">カート</h1>
 
       {cart.length === 0 ? (
         <>
-          <p className="text-blue-700">カートは空です。</p>
+          <p className="text-black">カートは空です。</p>
 
           <div className="mt-4">
             <Link
@@ -44,8 +44,8 @@ export default function CartPage() {
               className="flex justify-between items-center bg-white p-3 rounded-lg shadow mb-2"
             >
               <div>
-                <p className="font-medium text-blue-800">{item.name}</p>
-                <p className="text-sm text-blue-600">
+                <p className="font-medium text-black">{item.name}</p>
+                <p className="text-sm text-gray-700">
                   ¥{item.price} × {item.quantity}
                 </p>
               </div>
@@ -53,22 +53,22 @@ export default function CartPage() {
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => decreaseQuantity(item.id)}
-                  className="px-2 py-1 bg-blue-100 text-blue-700 rounded-l"
+                  className="px-2 py-1 bg-blue-100 text-black rounded-l"
                 >
                   -
                 </button>
-                <span className="px-4 py-1 border-t border-b border-blue-200">
+                <span className="px-4 py-1 border-t border-b border-gray-300 text-black">
                   {item.quantity}
                 </span>
                 <button
                   onClick={() => addToCart(item, 1)}
-                  className="px-2 py-1 bg-blue-100 text-blue-700 rounded-r"
+                  className="px-2 py-1 bg-blue-100 text-black rounded-r"
                 >
                   +
                 </button>
                 <button
                   onClick={() => removeFromCart(item.id)}
-                  className="text-blue-600 ml-2 hover:underline"
+                  className="text-black ml-2 hover:underline"
                 >
                   削除
                 </button>
@@ -76,7 +76,7 @@ export default function CartPage() {
             </div>
           ))}
 
-          <p className="font-bold text-lg mt-4 text-blue-800">
+          <p className="font-bold text-lg mt-4 text-black">
             合計：¥{total}
           </p>
 

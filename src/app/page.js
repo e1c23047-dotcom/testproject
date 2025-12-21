@@ -30,7 +30,10 @@ export default function Home() {
       .then((r) => r.json())
       .then((data) => {
         setProducts(data);
-        const initial = data.reduce((acc, p) => ({ ...acc, [p.id]: 1 }), {});
+        const initial = data.reduce(
+          (acc, p) => ({ ...acc, [p.id]: 1 }),
+          {}
+        );
         setQuantities(initial);
       });
   }, []);
@@ -61,14 +64,9 @@ export default function Home() {
       <main className="flex min-h-screen w-full max-w-md flex-col items-center py-10 px-6">
         {/* Header */}
         <div className="flex w-full items-center justify-between mb-8">
-          <Image src="/mc-logo.png" alt="Logo" width={50} height={50} />
-          <div className="flex items-center gap-2">
-            <Link
-              href="/cart"
-              className="rounded-full bg-[#3da9fc] hover:bg-[#0f8be6] px-4 py-2 text-white text-sm font-semibold shadow"
-            >
-              カート
-            </Link>
+          {/* 左：ロゴ + ログアウト */}
+          <div className="flex items-center gap-3">
+            <Image src="/mc-logo.png" alt="Logo" width={50} height={50} />
             <button
               onClick={handleLogout}
               className="rounded-full bg-red-500 hover:bg-red-600 px-4 py-2 text-white text-sm font-semibold shadow"
@@ -76,6 +74,14 @@ export default function Home() {
               ログアウト
             </button>
           </div>
+
+          {/* 右：カート */}
+          <Link
+            href="/cart"
+            className="rounded-full bg-[#3da9fc] hover:bg-[#0f8be6] px-4 py-2 text-white text-sm font-semibold shadow"
+          >
+            カート
+          </Link>
         </div>
 
         <h1 className="text-3xl font-bold text-[#1e3a8a] mb-4">
@@ -85,7 +91,7 @@ export default function Home() {
           商品をカテゴリーから選べます。
         </p>
 
-        {/* ================= カテゴリタブ（修正済み） ================= */}
+        {/* カテゴリタブ */}
         <div className="flex gap-3 mb-4 flex-wrap justify-center">
           {[
             { key: "all", label: "すべて" },
@@ -97,7 +103,7 @@ export default function Home() {
             <button
               key={cat.key}
               onClick={() => setSelectedCategory(cat.key)}
-              className={`px-4 py-2 rounded whitespace-nowrap min-w-[90px] text-center ${
+              className={`px-4 py-2 rounded whitespace-nowrap min-w-[90px] ${
                 selectedCategory === cat.key
                   ? "bg-blue-500 text-white"
                   : "bg-gray-200"
@@ -144,7 +150,7 @@ export default function Home() {
               .map((p) => (
                 <div
                   key={p.id}
-                  className="rounded-lg bg-white p-3 shadow-md border border-[#cce8ff]"
+                  className="rounded-lg bg-white p-3 shadow-md border"
                 >
                   <Image
                     src={p.image}
@@ -233,16 +239,15 @@ export default function Home() {
                   </div>
 
                   <button
-                   onClick={() => handleAdd(p)}
-                   className={`px-4 py-2 rounded text-white ${
-                     addedProduct === p.id
-                      ? "bg-green-500"
-                      : "bg-[#3da9fc]"
-                   }`}
+                    onClick={() => handleAdd(p)}
+                    className={`px-4 py-2 rounded text-white ${
+                      addedProduct === p.id
+                        ? "bg-green-500"
+                        : "bg-[#3da9fc]"
+                    }`}
                   >
                     {addedProduct === p.id ? "追加済" : "追加"}
                   </button>
-
                 </div>
               ))}
           </div>

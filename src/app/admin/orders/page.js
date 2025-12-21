@@ -45,6 +45,7 @@ export default function AdminOrdersPage() {
     es.onmessage = (e) => {
       try {
         const order = JSON.parse(e.data);
+        // 新規注文は一旦先頭に入るが、表示時に sort される
         setOrders((prev) => [order, ...prev]);
       } catch {}
     };
@@ -58,14 +59,25 @@ export default function AdminOrdersPage() {
   const startOfToday = new Date();
   startOfToday.setHours(0, 0, 0, 0);
 
-  // ---------------- 状態別配列 ----------------
-  const activeOrders = orders.filter((o) => !o.served);
+  // ---------------- 表示用（昇順ソート済み） ----------------
 
-  const servedOrdersToday = orders.filter((o) => {
-    if (!o.served) return false;
-    const createdAt = new Date(o.createdAt);
-    return createdAt >= startOfToday;
-  });
+  // 提供待ち（served === false）
+  const activeOrders = orders
+    .filter((o) => !o.served)
+    .sort(
+      (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+    );
+
+  // 提供済み（当日分のみ）
+  const servedOrdersToday = orders
+    .filter((o) => {
+      if (!o.served) return false;
+      const createdAt = new Date(o.createdAt);
+      return createdAt >= startOfToday;
+    })
+    .sort(
+      (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+    );
 
   // 提供待ち件数
   const activeCount = activeOrders.length;
@@ -156,7 +168,9 @@ function OrderList({ list, onCookFinish, onServeFinish, disabled }) {
         <div key={o.id} className="p-4 rounded shadow border bg-white">
           <div className="flex justify-between">
             <div>
-              <p className="font-bold">受取番号: {o.pickupNumber}</p>
+              <p className="font-bold">
+                受取番号: {o.pickupNumber}
+              </p>
               <p className="text-sm text-gray-600">
                 {new Date(o.createdAt).toLocaleString()}
               </p>
