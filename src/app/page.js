@@ -58,13 +58,12 @@ export default function Home() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#e8f6ff] font-sans">
+    <div className="flex min-h-screen items-center justify-center bg-[#e8f6ff] font-sans text-black">
       <Toaster position="top-right" />
 
       <main className="flex min-h-screen w-full max-w-md flex-col items-center py-10 px-6">
         {/* Header */}
         <div className="flex w-full items-center justify-between mb-8">
-          {/* 左：ロゴ + ログアウト */}
           <div className="flex items-center gap-3">
             <Image src="/mc-logo.png" alt="Logo" width={50} height={50} />
             <button
@@ -75,7 +74,6 @@ export default function Home() {
             </button>
           </div>
 
-          {/* 右：カート */}
           <Link
             href="/cart"
             className="rounded-full bg-[#3da9fc] hover:bg-[#0f8be6] px-4 py-2 text-white text-sm font-semibold shadow"
@@ -84,10 +82,10 @@ export default function Home() {
           </Link>
         </div>
 
-        <h1 className="text-3xl font-bold text-[#1e3a8a] mb-4">
+        <h1 className="text-3xl font-bold text-black mb-4">
           モバイルオーダー
         </h1>
-        <p className="text-[#3c4f76] text-center text-base mb-6">
+        <p className="text-black text-center text-base mb-6">
           商品をカテゴリーから選べます。
         </p>
 
@@ -106,7 +104,7 @@ export default function Home() {
               className={`px-4 py-2 rounded whitespace-nowrap min-w-[90px] ${
                 selectedCategory === cat.key
                   ? "bg-blue-500 text-white"
-                  : "bg-gray-200"
+                  : "bg-gray-200 text-black"
               }`}
             >
               {cat.label}
@@ -121,7 +119,7 @@ export default function Home() {
             className={`px-4 py-2 rounded ${
               viewMode === "card"
                 ? "bg-blue-500 text-white"
-                : "bg-gray-200"
+                : "bg-gray-200 text-black"
             }`}
           >
             カード表示
@@ -131,7 +129,7 @@ export default function Home() {
             className={`px-4 py-2 rounded ${
               viewMode === "list"
                 ? "bg-blue-500 text-white"
-                : "bg-gray-200"
+                : "bg-gray-200 text-black"
             }`}
           >
             リスト表示
@@ -150,7 +148,7 @@ export default function Home() {
               .map((p) => (
                 <div
                   key={p.id}
-                  className="rounded-lg bg-white p-3 shadow-md border"
+                  className="rounded-lg bg-white p-3 shadow-md border text-black"
                 >
                   <Image
                     src={p.image}
@@ -159,12 +157,8 @@ export default function Home() {
                     height={200}
                     className="rounded-md"
                   />
-                  <p className="font-medium mt-2 text-[#1e3a8a]">
-                    {p.name}
-                  </p>
-                  <p className="text-sm text-[#3c4f76] mb-2">
-                    ¥{p.price}
-                  </p>
+                  <p className="font-medium mt-2 text-black">{p.name}</p>
+                  <p className="text-sm text-black mb-2">¥{p.price}</p>
 
                   <div className="flex items-center mb-2">
                     <button
@@ -174,11 +168,11 @@ export default function Home() {
                           [p.id]: Math.max(1, prev[p.id] - 1),
                         }))
                       }
-                      className="px-2 py-1 bg-[#dff1ff] rounded-l"
+                      className="px-2 py-1 bg-[#dff1ff] rounded-l text-black"
                     >
                       -
                     </button>
-                    <span className="px-4 py-1 border">
+                    <span className="px-4 py-1 border text-black">
                       {quantities[p.id]}
                     </span>
                     <button
@@ -188,7 +182,7 @@ export default function Home() {
                           [p.id]: prev[p.id] + 1,
                         }))
                       }
-                      className="px-2 py-1 bg-[#dff1ff] rounded-r"
+                      className="px-2 py-1 bg-[#dff1ff] rounded-r text-black"
                     >
                       +
                     </button>
@@ -220,7 +214,7 @@ export default function Home() {
               .map((p) => (
                 <div
                   key={p.id}
-                  className="flex items-center gap-4 bg-white p-4 rounded-lg shadow border"
+                  className="flex items-center gap-4 bg-white p-4 rounded-lg shadow border text-black"
                 >
                   <Image
                     src={p.image}
@@ -230,12 +224,8 @@ export default function Home() {
                     className="rounded"
                   />
                   <div className="flex-1">
-                    <p className="font-bold text-[#1e3a8a]">
-                      {p.name}
-                    </p>
-                    <p className="text-sm text-[#3c4f76]">
-                      ¥{p.price}
-                    </p>
+                    <p className="font-bold text-black">{p.name}</p>
+                    <p className="text-sm text-black">¥{p.price}</p>
                   </div>
 
                   <button
